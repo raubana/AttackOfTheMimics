@@ -1,0 +1,11 @@
+"attack_of_the_mimics"
+{
+	"base"		"base"
+	"title"		"Attack of the Mimics"
+	"maps"		"^aotm_*"
+	"menusystem"	"1"
+	
+	"settings"
+	{
+	}
+}

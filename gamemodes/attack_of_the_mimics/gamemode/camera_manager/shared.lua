@@ -1,0 +1,3 @@
+
+
+print("camera manager shared")

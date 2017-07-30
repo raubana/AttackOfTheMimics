@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+	"$basetexture" 	"attack_of_the_mimics/vgui/wep_icons/claws"
+	"$translucent"	1
+}

@@ -1,0 +1,3 @@
+
+
+print("flashlight manager shared")

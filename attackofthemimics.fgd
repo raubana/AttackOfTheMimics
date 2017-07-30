@@ -1,0 +1,107 @@
+//====== Original FGD is Copyright © 1996-2005, Valve Corporation, All rights reserved. =======
+//
+// Purpose: Rocket Ball game definition file (.fgd) 
+//
+//=============================================================================
+
+@include "base.fgd"
+
+
+
+@PointClass base(Targetname, Angles) studio("models/editor/playerstart.mdl") = info_aotm_mechanic_start : "Spawn point for a mechanic." 
+[
+	// Outputs
+	output PlayerSpawn(void) : "Fires when a mechanic has spawned at this location."
+]
+
+
+@PointClass base(Targetname, Angles) studio("models/editor/playerstart.mdl") = info_aotm_mimic_start : "Spawn point for a mimic." 
+[
+	// Outputs
+	output PlayerSpawn(void) : "Fires when a mimic has spawned at this location."
+]
+
+
+@PointClass base(Targetname) = info_aotm_door_registrar : "Used to register a door (or set of doors) for the keyrings that mechanics have." 
+[
+	// Inputs
+	input RegisterDoor(target_destination) : "Add a door to the register for the mechanics' keyrings. Should only be called once per door and before the player's have spawned. Each of these ents represent a single key."
+]
+
+
+@PointClass base(Targetname) = info_aotm_task : "Used to register a task for the mechanics. Should only have one of these ents per task." 
+[
+	taskdescription(string) : "TaskDescription" : "TODO" : "A short description of the task that the mechanics will need to do. DON'T USE DOUBLE QUOTES OR YOU WILL BREAK YOUR MAP."
+
+	// Inputs
+	input MakeActive(void) : "Make this one of the tasks that the mechanics will need to complete this round."
+	input MarkComplete(void) : "Mark that this task has been completed."
+]
+
+
+@PointClass base(Targetname) = logic_aotm_task_picker : "Will pick out X random entities to fire for the sake of setting up tasks at the start of a new round." 
+[
+	numtasks(integer) : "NumTasks" : 3 : "The number of tasks to randomly pick. 1 through 16 inclusive."
+	numents(integer) : "NumEnts" : 0 : "The number of entities to choose from. 0 through 16 inclusive."
+	
+	// Outputs
+	output OnTriggerEnt1(void) : "Fires ent1."
+	output OnTriggerEnt2(void) : "Fires ent2."
+	output OnTriggerEnt3(void) : "Fires ent3."
+	output OnTriggerEnt4(void) : "Fires ent4."
+	output OnTriggerEnt5(void) : "Fires ent5."
+	output OnTriggerEnt6(void) : "Fires ent6."
+	output OnTriggerEnt7(void) : "Fires ent7."
+	output OnTriggerEnt8(void) : "Fires ent8."
+	output OnTriggerEnt9(void) : "Fires ent9."
+	output OnTriggerEnt10(void) : "Fires ent10."
+	output OnTriggerEnt11(void) : "Fires ent11."
+	output OnTriggerEnt12(void) : "Fires ent12."
+	output OnTriggerEnt13(void) : "Fires ent13."
+	output OnTriggerEnt14(void) : "Fires ent14."
+	output OnTriggerEnt15(void) : "Fires ent15."
+	output OnTriggerEnt16(void) : "Fires ent16."
+
+]
+
+
+@PointClass base(Targetname) = point_aotm_random_unspawner : "Will pick out X random entities of the given name to keep spawned, and will unspawn the rest." 
+[
+	tobeunspawned(target_destination) : "ToBeUnspawned" : "" : "The targets to unspawn."
+	keepspawned(integer) : "KeepSpawned" : 1 : "The number of the random entities to keep spawned."
+	
+	// Inputs
+	input Run(void) : "Perform the unspawning."
+]
+
+
+@PointClass base(Targetname, Parentname, Angles) studioprop() = sent_aotm_mechanic_pickup : "Something the mechanic can pick up." 
+[
+	model(studio) : "World Model"
+	
+	// Outputs
+	output OnPickUp(void) : "Fires when this entity has been picked up."
+]
+
+
+@PointClass base(Targetname, Parentname, Angles) studio("models/props_silo/camera.mdl") = sent_aotm_cctv_camera : "A CCTV camera." 
+[
+	cameraid(string) : "CameraID" : "???" : "A very short ID for the camera. For example, WC2 for water closet 2."
+	fov(integer) : "FOV" : 60 : "The field of view for the camera. Can be 10 through 170."
+]
+
+
+@PointClass base(Targetname, Parentname, Angles) studio("models/props_c17/tv_monitor01.mdl") = sent_aotm_cctv_display : "A CCTV display." 
+[
+	startcamera(target_destination) : "StartCamera" : "" : "The camera this should be assigned to initially."
+
+	// Inputs
+	input AssignCamera(target_destination) : "Assign a camera to this display."
+]
+
+
+@PointClass base(Targetname) = info_aotm_append_credits : "Used to add additional credits for the content of the map." 
+[
+	// Inputs
+	input AppendCredits(string) : "A list of of strings, like 'Hello~World'. Commas don't work. DON'T USE DOUBLE QUOTES OR YOU WILL BREAK YOUR MAP!"
+]
