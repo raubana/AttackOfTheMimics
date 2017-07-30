@@ -15,8 +15,6 @@ end
 
 
 function ENT:KeyValue(key, value)
-	print(self, key, value)
-	
 	if key == "model" then
 		self:SetModel(value)
 	elseif key == "OnPickUp" then

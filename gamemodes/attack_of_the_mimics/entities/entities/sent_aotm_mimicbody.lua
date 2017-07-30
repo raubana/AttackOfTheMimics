@@ -25,6 +25,11 @@ function ENT:Initialize()
 end
 
 if SERVER then
+	function ENT:IpdateTransmitState()
+		return TRANSMIT_ALWAYS
+	end
+
+
 	local MIN_VOLUME = 30000
 	local MAX_VOLUME = 250000
 	local MIN_DIMENSION = 20

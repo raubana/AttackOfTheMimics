@@ -90,7 +90,7 @@ function GM:Tick()
 			local ply_list = player.GetAll()
 			local i = #ply_list
 			while i > 0 do
-				if ply_list[i].wants_to_play != true then
+				if not ply_list[i].wants_to_play then
 					table.remove(ply_list, i)
 				end
 				i = i - 1
@@ -130,7 +130,7 @@ function GM:Tick()
 			-- to pick a player, each time using roulette selection to
 			-- pick from the remaining players.
 			
-			local mimic_count = math.floor(math.Clamp(MIMIC2MECHANIC_RATIO:GetFloat(),0,1)*#players_to_play)
+			local mimic_count = math.ceil(math.Clamp(MIMIC2MECHANIC_RATIO:GetFloat(),0,1)*#players_to_play)
 			local mechanic_count = #players_to_play - mimic_count
 			
 			local pick_order = {}
