@@ -38,7 +38,7 @@ may have many errors. To fix it, you will need to do one of the following:
    Steam Workshop. This will fix the problem for anyone who connects to the
    server.
 
-   TODO: PROVIDE THE LINK TO THE ADDON.
+   http://steamcommunity.com/sharedfiles/filedetails/?id=1095448769
 
    If you're running a dedicated server, you can use GMAD to unpack the .bsp
    from the .gma. Shh!
