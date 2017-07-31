@@ -4,7 +4,7 @@ local POSTROUND_DELAY = CreateConVar("aotm_postround_delay", "10", FCVAR_ARCHIVE
 
 local MIN_PLAYERS = CreateConVar("aotm_min_players", "2", FCVAR_ARCHIVE+FCVAR_SERVER_CAN_EXECUTE+FCVAR_NOTIFY)
 local MAX_PLAYERS = CreateConVar("aotm_max_players", "8", FCVAR_ARCHIVE+FCVAR_SERVER_CAN_EXECUTE+FCVAR_NOTIFY)
-local MIMIC2MECHANIC_RATIO = CreateConVar("aotm_mimic_to_mechanic_ratio", "0.5", FCVAR_ARCHIVE+FCVAR_SERVER_CAN_EXECUTE+FCVAR_NOTIFY)
+local MIMIC2MECHANIC_RATIO = CreateConVar("aotm_mimic_to_mechanic_ratio", "0.666", FCVAR_ARCHIVE+FCVAR_SERVER_CAN_EXECUTE+FCVAR_NOTIFY)
 
 local DEBUG_SINGLEPLAYER = CreateConVar("aotm_debug_singleplayer", "0", FCVAR_CHEAT+FCVAR_SERVER_CAN_EXECUTE+FCVAR_NOTIFY)
 
@@ -130,7 +130,7 @@ function GM:Tick()
 			-- to pick a player, each time using roulette selection to
 			-- pick from the remaining players.
 			
-			local mimic_count = math.ceil(math.Clamp(MIMIC2MECHANIC_RATIO:GetFloat(),0,1)*#players_to_play)
+			local mimic_count = math.floor(math.Clamp(MIMIC2MECHANIC_RATIO:GetFloat(),0,1)*#players_to_play)
 			local mechanic_count = #players_to_play - mimic_count
 			
 			local pick_order = {}

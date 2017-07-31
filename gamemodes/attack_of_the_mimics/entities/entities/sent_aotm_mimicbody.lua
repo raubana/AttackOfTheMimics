@@ -25,7 +25,7 @@ function ENT:Initialize()
 end
 
 if SERVER then
-	function ENT:IpdateTransmitState()
+	function ENT:UpdateTransmitState()
 		return TRANSMIT_ALWAYS
 	end
 

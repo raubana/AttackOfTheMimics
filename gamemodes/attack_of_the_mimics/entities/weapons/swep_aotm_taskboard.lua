@@ -69,19 +69,21 @@ if CLIENT then
 		local y = 10
 	
 		for i, task in ipairs(AOTM_CLIENT_TASK_MANAGER.tasks) do
-			local message = task.description
-			if task.completed then
-				message = "☑ ".. message
-			else
-				message = "☐ ".. message
+			if task.description then
+				local message = task.description
+				if task.completed then
+					message = "☑ ".. message
+				else
+					message = "☐ ".. message
+				end
+			
+				local w, h = surface.GetTextSize(message)
+				
+				surface.SetTextPos(10,y)
+				surface.DrawText(message)
+				
+				y = y + h
 			end
-		
-			local w, h = surface.GetTextSize(message)
-			
-			surface.SetTextPos(10,y)
-			surface.DrawText(message)
-			
-			y = y + h
 		end
 	end
 end

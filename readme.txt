@@ -25,23 +25,13 @@ the addons folder.
   aotm_mall_v1.bsp
 ================================================================================
 
-The gamemode comes with a map for your enjoyment. However, for legal reasons,
-the map has models and textures that are not packed into it. This means that you
-may have many errors. To fix it, you will need to do one of the following:
-
-
-1) Mount Half-Life 2: Episode 2, Left 4 Dead, and Left 4 Dead 2. This will fix
-   the problem for ONLY the player who has mounted these.
-
-
-2) Delete the map from the addon and download the packed version from the
-   Steam Workshop. This will fix the problem for anyone who connects to the
-   server.
+The gamemode used to come with a map for your enjoyment. However, there were
+problems with errors. Instead, here is the link to the packed version:
 
    http://steamcommunity.com/sharedfiles/filedetails/?id=1095448769
 
-   If you're running a dedicated server, you can use GMAD to unpack the .bsp
-   from the .gma. Shh!
+If you're running a dedicated server, you can use GMAD to unpack the .bsp from
+the .gma. Shh!
 
 
 

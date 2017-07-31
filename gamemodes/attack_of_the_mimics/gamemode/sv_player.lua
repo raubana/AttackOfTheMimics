@@ -51,7 +51,7 @@ function GM:PlayerSpawn(ply)
 			ply:Give("swep_aotm_flashlight")
 			ply:ShouldDropWeapon(true)
 			
-			ply:SetRunSpeed(300)
+			ply:SetRunSpeed(250)
 			ply:SetWalkSpeed(90)
 			ply:SetCrouchedWalkSpeed(0.5)
 			
@@ -70,7 +70,7 @@ function GM:PlayerSpawn(ply)
 			ply:Give("swep_aotm_mimic")
 			ply:ShouldDropWeapon(false)
 			
-			ply:SetRunSpeed(400)
+			ply:SetRunSpeed(350)
 			ply:SetWalkSpeed(85)
 			ply:SetCrouchedWalkSpeed(0.2)
 			

@@ -6,10 +6,14 @@ local history_filename = "aotm_play_history.txt"
 
 function GM:LoadPlayHistory()
 	local str = file.Read(history_filename)
-	if str == nil then
+	
+	if not str then
 		GAMEMODE.play_history = {} 
 	else
 		GAMEMODE.play_history = util.JSONToTable(str)
+		if not GAMEMODE.play_history then
+			GAMEMODE.play_history = {}
+		end
 	end
 end
 
@@ -21,21 +25,21 @@ end
 
 
 function GM:ScorePlayerToPlay( ply )
-	local play_info = GAMEMODE.play_history[ply:SteamID64()]
+	local play_info = GAMEMODE.play_history[ply:SteamID()]
 	if not play_info then return 1.0 end
 	return play_info.rounds_without_play + 1
 end
 
 
 function GM:ScorePlayerToBeMechanic( ply )
-	local play_info = GAMEMODE.play_history[ply:SteamID64()]
+	local play_info = GAMEMODE.play_history[ply:SteamID()]
 	if not play_info then return 1.0 end
 	return play_info.rounds_without_mechanic + 1
 end
 
 
 function GM:ScorePlayerToBeMimic( ply )
-	local play_info = GAMEMODE.play_history[ply:SteamID64()]
+	local play_info = GAMEMODE.play_history[ply:SteamID()]
 	if not play_info then return 1.0 end
 	return play_info.rounds_without_mimic + 1
 end
@@ -67,7 +71,7 @@ hook.Add( "Tick", "AOTM_Tick_PlayHistory", function()
 			end
 			
 			for i, ply in ipairs(ply_list) do
-				local play_info = GAMEMODE.play_history[ply:SteamID64()]
+				local play_info = GAMEMODE.play_history[ply:SteamID()]
 				
 				if not play_info then
 					play_info = {}
@@ -94,7 +98,7 @@ hook.Add( "Tick", "AOTM_Tick_PlayHistory", function()
 				
 				play_info.last_on_server = time
 				
-				GAMEMODE.play_history[ply:SteamID64()] = play_info
+				GAMEMODE.play_history[ply:SteamID()] = play_info
 			end
 			
 			GAMEMODE:SavePlayHistory()
