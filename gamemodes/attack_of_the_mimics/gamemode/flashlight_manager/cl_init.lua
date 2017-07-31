@@ -28,11 +28,11 @@ hook.Add( "Tick", "AOTM_Tick_FlashlightManager", function()
 			proj_text = ProjectedTexture()
 			proj_text:SetEnableShadows(true)
 			proj_text:SetTexture("effects/flashlight001")
-			proj_text:SetBrightness(2)
+			proj_text:SetBrightness(3)
 			local fov = 45
 			proj_text:SetHorizontalFOV(fov)
 			proj_text:SetVerticalFOV(fov)
-			proj_text:SetFarZ(2048)
+			proj_text:SetFarZ(2048*0.75)
 			proj_text:SetColor(color_white)
 			
 			ent.proj_text = proj_text

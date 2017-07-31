@@ -24,7 +24,7 @@ end
 
 
 function ENT:Use(activator, caller, useType, value)
-	if not IsValid(activator) or not activator:IsPlayer() or not activator:Team() == TEAM_MECHANIC then return end
+	if (not IsValid(activator)) or (not activator:IsPlayer()) or (activator:Team() != TEAM_MECHANIC) then return end
 
 	self:TriggerOutput("OnPickUp", activator)
 	SafeRemoveEntity(self)

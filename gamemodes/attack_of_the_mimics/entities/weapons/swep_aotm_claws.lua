@@ -29,7 +29,7 @@ SWEP.AccurateCrosshair		= true
 
 SWEP.DeploySpeed 			= 1.0
 
-SWEP.Primary.Delay 			= 0.5
+SWEP.Primary.Delay 			= 1.0
 
 SWEP.Primary.Sound 			= Sound("npc/fast_zombie/claw_miss1.wav")
 SWEP.Primary.HitSound 		= Sound("npc/fast_zombie/claw_strike1.wav")
@@ -110,6 +110,8 @@ function SWEP:PrimaryAttack()
 			local forward = ang:Forward()
 			
 			dmg_scale = dmg_scale * (math.max(forward:Dot(owner:GetAimVector())*2, 0)+1)
+		elseif hitEnt:GetClass() == "prop_door_rotating" then
+			dmg_scale = dmg_scale * 5.0
 		end
 		
 		dmg:SetDamage(self.Primary.Damage*dmg_scale)

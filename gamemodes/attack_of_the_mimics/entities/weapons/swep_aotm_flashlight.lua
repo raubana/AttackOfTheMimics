@@ -41,7 +41,7 @@ SWEP.Primary.Ammo			= "none"
 SWEP.Secondary.Sound 		= Sound("npc/fast_zombie/claw_miss1.wav")
 SWEP.Secondary.HitSound 	= Sound("ambient/voices/citizen_punches2.wav")
 
-SWEP.Secondary.Delay 		= 0.75
+SWEP.Secondary.Delay 		= 1.0
 SWEP.Secondary.Damage 		= 25
 
 SWEP.Secondary.ClipSize		= -1
