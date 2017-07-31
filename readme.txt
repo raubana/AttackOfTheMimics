@@ -88,49 +88,49 @@ The mechanics have a set of useful tools:
 1)  Walkie Talkie
 	
     The walkie talkie (also known as a two-way radio) can be used to communicate
-	between mechanics from long distances. To use it, simply hold your primary
-	fire button (Default: Mouse Left Button) and talk.
-	
-	You cannot talk to someone using the walkie talkie unless you have it
-	deployed. However, you can still hear someone through the walkie talkie,
-	even when it is holstered.
-	
-	Don't stand too close to another walkie talkie while transmitting, or you
-	will create feedback. Ouch!
+    between mechanics from long distances. To use it, simply hold your primary
+    fire button (Default: Mouse Left Button) and talk.
+    
+    You cannot talk to someone using the walkie talkie unless you have it
+    deployed. However, you can still hear someone through the walkie talkie,
+    even when it is holstered.
+    
+    Don't stand too close to another walkie talkie while transmitting, or you
+    will create feedback. Ouch!
 	
 	
 2)  Task Board
 
     The task board shows the list of tasks that must be completed in order to
-	win. If there are no tasks listed, then you must kill the mimics to win.
-	
-	Whenever a task has been completed, the box next to the task will have a 
-	checkmark in it.
+    win. If there are no tasks listed, then you must kill the mimics to win.
+    
+    Whenever a task has been completed, the box next to the task will have a 
+    checkmark in it.
 
 
 3)  Key Ring
 
     The key ring has a set of keys you can use to unlock and lock some doors
-	on the map.
-	
-	To use it, first select the key you want to use by pressing Reload
-	(Default: R) until the key's code is shown by the crosshair. Then look at
-	the door and either press your primary fire (Default: Mouse Left Button) to
-	unlock it, or press your secondary fire (Default: Mouse Right Button)
-	to lock it.
-	
-	Every time you put your keys away, you lose your spot on the ring.
+    on the map.
+
+    To use it, first select the key you want to use by pressing Reload
+    (Default: R) until the key's code is shown by the crosshair. Then look at
+    the door and either press your primary fire (Default: Mouse Left Button) to
+    unlock it, or press your secondary fire (Default: Mouse Right Button)
+    to lock it.
+    
+    Every time you put your keys away, you lose your spot on the ring.
 
 
 4)  Flashlight
     
     The flashlight can be used both as a tool and a weapon. To toggle the light,
-	press your primary fire (Default: Mouse Left Button). To attack with the
-	flashlight, hit your secondary fire (Default: Mouse Right Button).
-	
-	Each attack with the flashlight does 25 damage.
-	
-	The flashlight can only be on while it is deployed.
+    press your primary fire (Default: Mouse Left Button). To attack with the
+    flashlight, hit your secondary fire (Default: Mouse Right Button).
+
+    Each attack with the flashlight does 25 damage.
+
+    The flashlight can only be on while it is deployed.
 
 
 	
@@ -141,35 +141,37 @@ The mechanics have a set of useful tools:
 The mimics must kill the mechanics before their tasks are completed to win.
 
 The mimic can see a little in the dark. They can also toggle between first and
-third person by hitting their Left-Alt key.
+third person by hitting their Left-Alt key. Futhermore, mimics can sense how
+close they are to a mechanic, which is shown on the HUD at the bottom-right as
+the bar labeled PRX (for proximity).
 
 The mimics have two tools:
 
 1)  Claws
 	
     Press your primary fire button (Default: Mouse Left Button) to attack
-	whatever is in front of you.
-	
-	By default, the claws do 10 damage. However, the claws can do up to 6 times
-	this amount of damage if the conditions are right.
-	
-	You can do up to 2 times more damage based on how much stamina you have, as
-	long and you're not tired.
-	
-	You can do up to 3 times more damage if you attack a person's back.
+    whatever is in front of you.
+
+    By default, the claws do 10 damage. However, the claws can do up to 6 times
+    this amount of damage if the conditions are right.
+
+    You can do up to 2 times more damage based on how much stamina you have, as
+    long and you're not tired.
+
+    You can also do up to 3 times more damage if you attack a person's back.
 	
 	
 2)  Mimic
     
-	The mimic tool is used to mimic props around the map. To mimic a prop, go up
-	to it and press your primary fire (Default: Mouse Left Button) while aiming
-	at it.
-	
-	Bear in mind, you can only mimic props of certian dimentions and volumes.
-	You might not be able to mimic something if it's too thin, too small, too
-	long, too tall, or too large.
-	
-	Remember: hit your Left-Alt button to toggle between first person and third
-	person.
+    The mimic tool is used to mimic props around the map. To mimic a prop, go up
+    to it and press your primary fire (Default: Mouse Left Button) while aiming
+    at it.
+
+    Bear in mind, you can only mimic props of certian dimentions and volumes.
+    You might not be able to mimic something if it's too thin, too small, too
+    long, too tall, or too large.
+
+    Remember: hit your Left-Alt button to toggle between first person and third
+    person.
 
     
