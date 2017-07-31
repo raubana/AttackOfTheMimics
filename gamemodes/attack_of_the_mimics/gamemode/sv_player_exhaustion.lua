@@ -17,12 +17,12 @@ hook.Add( "PlayerTick", "AOTM_PlayerTick_PlayerExhaustion", function(ply, mv)
 		
 		if ply:IsOnGround() then
 			if mv:KeyPressed(IN_JUMP) then
-				nrg = nrg - 10
+				nrg = nrg - 5
 			end
 			
 			local speed = ply:GetVelocity():Length()
 			if speed > 200 then
-				nrg = nrg - 15.0*t_dif
+				nrg = nrg - 10.0*t_dif
 			end
 		end
 		
@@ -38,7 +38,7 @@ hook.Add( "PlayerTick", "AOTM_PlayerTick_PlayerExhaustion", function(ply, mv)
 		end
 		
 		if nrg < 100 then
-			nrg = nrg + 6*t_dif
+			nrg = nrg + 2.5*t_dif
 			
 			if ply:GetIsTired() and nrg >= 100 then
 				ply:SetIsTired( false )

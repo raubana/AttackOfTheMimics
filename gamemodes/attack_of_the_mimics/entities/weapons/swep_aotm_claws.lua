@@ -33,7 +33,7 @@ SWEP.Primary.Delay 			= 1.0
 
 SWEP.Primary.Sound 			= Sound("npc/fast_zombie/claw_miss1.wav")
 SWEP.Primary.HitSound 		= Sound("npc/fast_zombie/claw_strike1.wav")
-SWEP.Primary.Damage			= 10
+SWEP.Primary.Damage			= 15
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
 SWEP.Primary.Automatic		= true
@@ -109,7 +109,7 @@ function SWEP:PrimaryAttack()
 			ang.pitch = 0
 			local forward = ang:Forward()
 			
-			dmg_scale = dmg_scale * (math.max(forward:Dot(owner:GetAimVector())*2, 0)+1)
+			dmg_scale = dmg_scale * (math.max(forward:Dot(owner:GetAimVector())*1, 0)+1)
 		elseif hitEnt:GetClass() == "prop_door_rotating" then
 			dmg_scale = dmg_scale * 5.0
 		end
@@ -129,7 +129,7 @@ function SWEP:PrimaryAttack()
 	
 	if SERVER then
 		if IsValid(owner) then
-			owner:SetEnergy(owner:GetEnergy()-10)
+			owner:SetEnergy(owner:GetEnergy()-25)
 		end
 	end
 end

@@ -28,6 +28,6 @@ hook.Add( "Tick", "AOTM_Tick_ProximitySense_Init", function()
 			net.Send(mimic)
 		end
 		
-		next_update_prox_sense = curtime + 1.0
+		next_update_prox_sense = curtime + 2.0
 	end
 end )

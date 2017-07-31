@@ -51,7 +51,7 @@ function GM:PlayerSpawn(ply)
 			ply:Give("swep_aotm_flashlight")
 			ply:ShouldDropWeapon(true)
 			
-			ply:SetRunSpeed(250)
+			ply:SetRunSpeed(300)
 			ply:SetWalkSpeed(90)
 			ply:SetCrouchedWalkSpeed(0.5)
 			
@@ -70,9 +70,9 @@ function GM:PlayerSpawn(ply)
 			ply:Give("swep_aotm_mimic")
 			ply:ShouldDropWeapon(false)
 			
-			ply:SetRunSpeed(350)
+			ply:SetRunSpeed(400)
 			ply:SetWalkSpeed(85)
-			ply:SetCrouchedWalkSpeed(0.2)
+			ply:SetCrouchedWalkSpeed(0.5)
 			
 			local ent = ents.Create("sent_aotm_mimicbody")
 			ent:SetPos(ply:GetPos())

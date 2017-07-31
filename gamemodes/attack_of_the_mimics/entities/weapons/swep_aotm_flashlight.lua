@@ -191,7 +191,7 @@ function SWEP:SecondaryAttack()
 	
 	if SERVER then
 		if IsValid(owner) then
-			owner:SetEnergy(owner:GetEnergy()-20)
+			owner:SetEnergy(owner:GetEnergy()-25)
 		end
 	end
 end

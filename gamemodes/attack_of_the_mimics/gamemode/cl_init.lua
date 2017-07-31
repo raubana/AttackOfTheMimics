@@ -121,7 +121,7 @@ function GM:HUDPaint()
 			start_energy = math.max(end_energy, start_energy - trans_amount)
 		end
 		
-		trans_amount = realframetime*0.1
+		trans_amount = realframetime*0.01
 		prox_sense = math.Approach(prox_sense, real_prox_sense, trans_amount)
 		
 		local h, s, v, color
@@ -132,7 +132,7 @@ function GM:HUDPaint()
 		v = 0.0
 		if localplayer:GetIsTired() then
 			h = 0
-			v = Lerp(caution_blink, 0.1, 0.75)
+			v = Lerp(danger_blink, 0.1, 0.75)
 		elseif end_energy < 0.33 then
 			v = danger_blink*0.75
 		-- elseif end_energy < 0.75 then
