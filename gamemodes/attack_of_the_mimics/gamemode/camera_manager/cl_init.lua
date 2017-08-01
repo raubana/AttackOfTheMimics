@@ -59,8 +59,12 @@ function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, ori
 	local nodraw = source_ent:GetNoDraw()
 	source_ent:SetNoDraw(true)
 	
-	local lighting = render.ComputeLighting(origin, angles:Forward())
-	local nightvision = math.min(lighting.x, lighting.y, lighting.z) <= 0.01
+	local dyn_light = render.ComputeDynamicLighting(pos, vec)
+	local light = render.ComputeLighting(pos, vec)
+	
+	light = light - dyn_light
+	
+	local nightvision = math.min(light.x, light.y, light.z) <= 0.01
 	
 	local proj_text
 	
