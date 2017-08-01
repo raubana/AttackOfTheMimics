@@ -66,15 +66,15 @@ if SERVER then
 		print(size, volume)
 		
 		if math.min(size.x, size.y, size.z) >= MIN_DIMENSION and math.max(size.x, size.y, size.z) <= MAX_DIMENSION and volume >= MIN_VOLUME and volume <= MAX_VOLUME then
-			local parent = self:GetParent()
-			local ang = parent:EyeAngles()
+			local owner = self:GetOwner()
+			local ang = owner:EyeAngles()
 			local normal = ang:Up()
-			local origin = parent:GetPos()
+			local origin = owner:GetPos()
 				
-			self:SetParent(nil)
+			--self:Setowner(nil)
 			self:SetPos(origin)
 			self:SetAngles(ang)
-			self:FollowBone(parent, 0)
+			self:FollowBone(owner, 0)
 			
 			if not do_not_emit_sound then
 				-- self:EmitSound("attack_of_the_mimics/player/mimic_transform.wav")
@@ -86,14 +86,27 @@ if SERVER then
 			self:SetSkin(old_skin)
 		end
 	end
+	
+	
+	function ENT:Think()
+		local owner = self:GetOwner()
+		
+		if IsValid(owner) then
+			self:SetPos(owner:GetPos())
+		end
+	
+	
+		self:NextThink(CurTime() + 1.0)
+		return true
+	end
 end
 
 if CLIENT then
 	function ENT:Draw()
-		local parent = self:GetParent()
+		local owner = self:GetOwner()
 		
-		if IsValid(parent) then
-			local ang = parent:EyeAngles()
+		if IsValid(owner) then
+			local ang = owner:EyeAngles()
 			ang.pitch = 0
 			self:SetRenderAngles(ang)
 			
@@ -101,7 +114,7 @@ if CLIENT then
 			local maxs = self:OBBMaxs()
 			
 			local size = maxs - mins
-			self:SetRenderOrigin(parent:GetPos() - Vector(0,0,mins.z))
+			self:SetRenderOrigin(owner:GetPos() - Vector(0,0,mins.z))
 			
 			if not self.do_not_draw then
 				self:DrawModel()

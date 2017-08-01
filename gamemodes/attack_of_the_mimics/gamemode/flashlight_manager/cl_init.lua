@@ -49,7 +49,7 @@ hook.Add( "PreRender", "AOTM_PreRender_FlashlightManager", function()
 			local ang = ent.Owner:EyeAngles()
 			
 			proj_text:SetAngles(ang)
-			proj_text:SetPos(ent.Owner:EyePos() + (ang:Forward() * 5) - (ang:Up()*3) + (ang:Right()*3))
+			proj_text:SetPos(ent.Owner:EyePos() + (ang:Forward() * 30) - (ang:Up()*3) + (ang:Right()*3))
 			proj_text:Update()
 			
 			local dlight = DynamicLight( ent.Owner:EntIndex() + 1 )

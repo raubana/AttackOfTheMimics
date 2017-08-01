@@ -76,7 +76,7 @@ function GM:PlayerSpawn(ply)
 			
 			local ent = ents.Create("sent_aotm_mimicbody")
 			ent:SetPos(ply:GetPos())
-			ent:SetParent(ply)
+			ent:SetOwner(ply)
 			ent:Spawn()
 			ent:Activate()
 			
