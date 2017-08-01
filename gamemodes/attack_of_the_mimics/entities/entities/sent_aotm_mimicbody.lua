@@ -24,6 +24,13 @@ function ENT:Initialize()
 	end
 end
 
+
+
+function ENT:SetupDataTables()
+	self:NetworkVar("Entity", 0, "Mimic")
+end
+
+
 if SERVER then
 	function ENT:UpdateTransmitState()
 		return TRANSMIT_ALWAYS
@@ -66,16 +73,6 @@ if SERVER then
 		print(size, volume)
 		
 		if math.min(size.x, size.y, size.z) >= MIN_DIMENSION and math.max(size.x, size.y, size.z) <= MAX_DIMENSION and volume >= MIN_VOLUME and volume <= MAX_VOLUME then
-			local owner = self:GetOwner()
-			local ang = owner:EyeAngles()
-			local normal = ang:Up()
-			local origin = owner:GetPos()
-				
-			--self:Setowner(nil)
-			self:SetPos(origin)
-			self:SetAngles(ang)
-			self:FollowBone(owner, 0)
-			
 			if not do_not_emit_sound then
 				-- self:EmitSound("attack_of_the_mimics/player/mimic_transform.wav")
 			end
@@ -89,24 +86,24 @@ if SERVER then
 	
 	
 	function ENT:Think()
-		local owner = self:GetOwner()
+		local mimic = self:GetMimic()
 		
-		if IsValid(owner) then
-			self:SetPos(owner:GetPos())
+		if IsValid(mimic) then
+			self:SetPos(mimic:GetPos())
 		end
 	
 	
-		self:NextThink(CurTime() + 1.0)
+		self:NextThink(CurTime() + 0.25)
 		return true
 	end
 end
 
 if CLIENT then
 	function ENT:Draw()
-		local owner = self:GetOwner()
+		local mimic = self:GetMimic()
 		
-		if IsValid(owner) then
-			local ang = owner:EyeAngles()
+		if IsValid(mimic) then
+			local ang = mimic:EyeAngles()
 			ang.pitch = 0
 			self:SetRenderAngles(ang)
 			
@@ -114,11 +111,15 @@ if CLIENT then
 			local maxs = self:OBBMaxs()
 			
 			local size = maxs - mins
-			self:SetRenderOrigin(owner:GetPos() - Vector(0,0,mins.z))
+			self:SetRenderOrigin(mimic:GetPos() - Vector(0,0,mins.z))
 			
-			if not self.do_not_draw then
+			if self.do_not_draw  then
+				-- do nothing
+			else
 				self:DrawModel()
 			end
+		else
+			self:DrawModel()
 		end
 	end
 end
