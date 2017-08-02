@@ -18,8 +18,7 @@ function ENT:Initialize()
 	if SERVER then
 		self.next_can_mimic = 0
 	else
-		self:SetRenderBounds(vector_origin, vector_origin, Vector(1,1,1)*100)
-		self:SetPredictable(false)
+		self:SetRenderBounds(vector_origin-(Vector(1,1,1)*100), vector_origin+(Vector(1,1,1)*100))
 		self.do_not_draw = false
 	end
 end
@@ -32,11 +31,6 @@ end
 
 
 if SERVER then
-	function ENT:UpdateTransmitState()
-		return TRANSMIT_ALWAYS
-	end
-
-
 	local MIN_VOLUME = 30000
 	local MAX_VOLUME = 250000
 	local MIN_DIMENSION = 20
@@ -70,7 +64,7 @@ if SERVER then
 		
 		local volume = size.x * size.y * size.z
 		
-		print(size, volume)
+		-- print(size, volume)
 		
 		if math.min(size.x, size.y, size.z) >= MIN_DIMENSION and math.max(size.x, size.y, size.z) <= MAX_DIMENSION and volume >= MIN_VOLUME and volume <= MAX_VOLUME then
 			if not do_not_emit_sound then
@@ -83,37 +77,37 @@ if SERVER then
 			self:SetSkin(old_skin)
 		end
 	end
-	
-	
-	function ENT:Think()
-		local mimic = self:GetMimic()
-		
-		if IsValid(mimic) then
-			self:SetPos(mimic:GetPos())
-		end
-	
-	
-		self:NextThink(CurTime() + 0.25)
-		return true
-	end
 end
+
+
+function ENT:Think()
+	local mimic = self:GetMimic()
+	
+	if IsValid(mimic) then
+		local ang = mimic:EyeAngles()
+		ang.pitch = 0
+		
+		self:SetAngles(ang)
+	
+		local mins = self:OBBMins()
+		local maxs = self:OBBMaxs()
+		
+		local size = maxs - mins
+		local pos = mimic:GetPos() - Vector(0,0,mins.z)
+		self:SetPos(pos)
+	end
+
+	self:NextThink(CurTime() + 0.25)
+	return true
+end
+
 
 if CLIENT then
 	function ENT:Draw()
 		local mimic = self:GetMimic()
 		
 		if IsValid(mimic) then
-			local ang = mimic:EyeAngles()
-			ang.pitch = 0
-			self:SetRenderAngles(ang)
-			
-			local mins = self:OBBMins()
-			local maxs = self:OBBMaxs()
-			
-			local size = maxs - mins
-			self:SetRenderOrigin(mimic:GetPos() - Vector(0,0,mins.z))
-			
-			if self.do_not_draw  then
+			if self.do_not_draw then
 				-- do nothing
 			else
 				self:DrawModel()

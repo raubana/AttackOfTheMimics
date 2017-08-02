@@ -203,3 +203,8 @@ end
 
 function GM:HUDDrawTargetID() -- we don't want a player's ID to be visible.
 end
+
+
+function GM:PrePlayerDraw( ply )
+	return ply:Team() != TEAM_MECHANIC
+end

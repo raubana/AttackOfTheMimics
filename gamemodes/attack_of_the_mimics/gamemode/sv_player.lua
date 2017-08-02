@@ -41,8 +41,6 @@ function GM:PlayerSpawn(ply)
 		ply:SetJumpPower(200)
 		
 		if t == TEAM_MECHANIC then 
-			ply:SetNoDraw(false)
-		
 			ply:SetModel("models/player/leet.mdl")
 			ply:Give("swep_aotm_holstered")
 			ply:Give("swep_aotm_walkietalkie")
@@ -62,8 +60,6 @@ function GM:PlayerSpawn(ply)
 			
 			AOTM_SERVER_IDBADGE_MANAGER:AddBadge(ply, ent)
 		elseif t == TEAM_MIMIC then
-			ply:SetNoDraw(true)
-			
 			ply:SetModel("models/Zombie/Poison.mdl")
 			
 			ply:Give("swep_aotm_claws")
