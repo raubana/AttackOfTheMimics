@@ -207,13 +207,13 @@ The mimics have two tools:
     Press your primary fire button (Default: Mouse Left Button) to attack
     whatever is in front of you.
 
-    By default, the claws do 10 damage. However, the claws can do up to 6 times
+    By default, the claws do 15 damage. However, the claws can do up to 4 times
     this amount of damage if the conditions are right.
 
     You can do up to 2 times more damage based on how much stamina you have, as
     long and you're not tired.
 
-    You can also do up to 3 times more damage if you attack a person's back.
+    You can also do up to 2 times more damage if you attack a person's back.
 	
 	
 2)  Mimic
