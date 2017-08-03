@@ -3,6 +3,47 @@ Updated 7/31/2017
 Dylan J. Raub
 
 
+
+
+================================================================================
+  Introduction
+================================================================================
+
+Hi, 
+
+I created this gamemode as part of the Summer 2017 Gmod Store Gamemode
+contest. My intention for this gamemode was to create a setting where people
+could scare and be scared by one another for the fun of it.
+
+I feel it's important I add in this part because it affects how fun the gamemode
+for the people that play it.
+
+First, if you don't allow yourself to be scared, you will not have fun. 
+
+Secondly, if you focus entirely on winning, again, you will not have fun. 
+
+Thirdly, take things slow. This is not a fast-paced gamemode.
+
+Fourth, it's more fun when mimics go out of their way to do creepy stuff.
+For instance, if a mechanic is unaware you're there, you can briefly tap your
+voice key to do some "mimic chatter" noise, or you can throw another prop and
+then go back into hiding. Another thing you can do is move existing props into
+unusual positions around the map to confuse the mechanics. Think about it this
+way: the second thing I mentioned was about focusing on winning not being fun.
+So the alternative would be to focus on being scary.
+
+Lastly, I need to mention that me and Turtleey only had two weeks to make it,
+given we started pretty late into the contest, so there was a lot of stuff I
+wanted to put in that I simply didn't have time for. Even so, I believe we did
+a pretty good job of creating a world for people to enjoy being frightened in.
+
+I hope you do enjoy your time playing this gamemode.
+
+- Dylan Raub (raubana)
+
+
+
+
 ================================================================================
   Installation
 ================================================================================
@@ -91,6 +132,7 @@ stamina, you will no longer be tired.
 ================================================================================
   How To Play - Mechanic
 ================================================================================
+
 The mechanics have to complete a set of tasks in order to win. Naturally, they
 must also survive. They can also win by killing all of the mimics. 
 
@@ -150,6 +192,7 @@ The mechanics have a set of useful tools:
 ================================================================================
   How To Play - Mimic
 ================================================================================
+
 The mimics must kill the mechanics before their tasks are completed to win.
 
 The mimic can see a little in the dark. They can also toggle between first and

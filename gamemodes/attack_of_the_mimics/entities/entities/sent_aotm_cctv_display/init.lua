@@ -10,6 +10,9 @@ function ENT:Initialize()
 	self:GetPhysicsObject():EnableMotion(false)
 	
 	AOTM_SERVER_CAMERA_MANAGER:AddDisplay(self)
+	
+	self.init_camera_name = self.init_camera_name or nil
+	self:AssignCamera(self.init_camera_name)
 end
 
 
@@ -30,7 +33,7 @@ end
 
 function ENT:KeyValue(key,value)
 	if key == "startcamera" then
-		self:AssignCamera( value )
+		self.init_camera_name = value
 	end
 end
 

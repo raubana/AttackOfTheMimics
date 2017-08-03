@@ -59,8 +59,8 @@ function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, ori
 	local nodraw = source_ent:GetNoDraw()
 	source_ent:SetNoDraw(true)
 	
-	local dyn_light = render.ComputeDynamicLighting(pos, vec)
-	local light = render.ComputeLighting(pos, vec)
+	local dyn_light = render.ComputeDynamicLighting(origin, angles:Forward())
+	local light = render.ComputeLighting(origin, angles:Forward())
 	
 	light = light - dyn_light
 	

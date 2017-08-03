@@ -16,7 +16,7 @@ end
 function ENT:Draw()
 	self:DrawModel()
 	
-	local cam_ent = nil -- self:GetCamera()
+	local cam_ent = self:GetCamera()
 	if IsValid(cam_ent) then
 	
 		-- TODO: Find a better solution to the RenderView bug.
