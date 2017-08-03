@@ -1,5 +1,5 @@
 Attack of the Mimics - ReadMe
-Updated 7/31/2017
+Updated 8/3/2017
 Dylan J. Raub
 
 

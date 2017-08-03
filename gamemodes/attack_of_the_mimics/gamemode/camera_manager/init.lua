@@ -44,7 +44,7 @@ hook.Add( "SetupPlayerVisibility", "AOTM_SetupPlayerVisibility_CameraManager_Ini
 	end
 
 	for i, display_ent in ipairs(AOTM_SERVER_CAMERA_MANAGER.display_list) do
-		if display_ent:Visible(viewEntity) and display_ent:GetPos():Distance(ply:GetPos()) < 750 then
+		if display_ent:GetPos():Distance(ply:GetPos()) < 750 then
 			local camera = display_ent:GetCamera()
 			
 			if IsValid(camera) then
