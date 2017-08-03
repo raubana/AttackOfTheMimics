@@ -6,6 +6,7 @@ AOTM_CLIENT_CAMERA_MANAGER.unused_rt_list = AOTM_CLIENT_CAMERA_MANAGER.unused_rt
 
 AOTM_CLIENT_CAMERA_MANAGER.queued_info = AOTM_CLIENT_CAMERA_MANAGER.queued_info or {}
 
+AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets = AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets or false
 
 
 
@@ -46,13 +47,12 @@ end
 
 
 function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, origin, angles, fov )
-	local temp_Texture = GetRenderTarget("AOTM_CCTV_TEMP", AOTM_CLIENT_CAMERA_MANAGER.WIDTH, AOTM_CLIENT_CAMERA_MANAGER.HEIGHT, false)
+	-- local temp_Texture = GetRenderTarget("AOTM_CCTV_TEMP", AOTM_CLIENT_CAMERA_MANAGER.WIDTH, AOTM_CLIENT_CAMERA_MANAGER.HEIGHT, false)
 	-- local mat_ColorMod = Material( "pp/colour" )
 	-- local old_texture = mat_ColorMod:GetTexture("$fbtexture")
 	-- mat_ColorMod:SetTexture( "$fbtexture", temp_Texture )
 
-	local old_rt = render.GetRenderTarget()
-	render.SetRenderTarget(texture)
+	render.PushRenderTarget(texture)
 	
 	local fov = fov or 45
 	
@@ -103,7 +103,7 @@ function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, ori
 	
 	render.BlurRenderTarget(texture, 1, 1, 1)
 	
-	render.CopyRenderTargetToTexture(temp_Texture)
+	-- render.CopyRenderTargetToTexture(temp_Texture)
 	
 	local contrast = 1.0
 	if nightvision then contrast = 4.0 end
@@ -128,18 +128,15 @@ function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, ori
 	render.DrawScreenQuad()
 	]]
 	
-	render.SetRenderTarget(old_rt)
+	render.PopRenderTarget()
 	
 	-- mat_ColorMod:SetTexture( "$fbtexture", old_texture )
 end
 
 
-local UPDATING_RENDER_TARGETS = false
-
-
 hook.Add( "PostRender", "AOTM_PostRender_CameraManager_ClInit", function()
-	if not UPDATING_RENDER_TARGETS then
-		UPDATING_RENDER_TARGETS = true
+	if not AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets then
+		AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets = true
 		
 		local i = #AOTM_CLIENT_CAMERA_MANAGER.queued_info
 	
@@ -149,7 +146,7 @@ hook.Add( "PostRender", "AOTM_PostRender_CameraManager_ClInit", function()
 			i = i - 1
 		end
 		
-		UPDATING_RENDER_TARGETS = false
+		AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets = false
 	else
 		return
 	end

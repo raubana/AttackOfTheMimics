@@ -38,7 +38,11 @@ net.Receive( "AOTM_RunIntroLogo", function(len, ply)
 		return name == "CHudGMod" or name == "CHudChat"
 	end )
 	
-	hook.Add( "PreDrawHUD", "AOTM_PreDrawHUD_IntroLogo", function()
+	hook.Add( "RenderScreenspaceEffects", "AOTM_RenderScreenspaceEffects_IntroLogo", function()
+		if AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets then
+			return
+		end
+	
 		local p = (RealTime() - logo_starttime) / LOGO_DURATION
 		
 		local color_mod = {}
@@ -58,7 +62,7 @@ net.Receive( "AOTM_RunIntroLogo", function(len, ply)
 		
 		if p >= 1.0 then
 			hook.Remove("HUDShouldDraw", "AOTM_HUDShouldDraw_IntroLogo")
-			hook.Remove("PreDrawHUD", "AOTM_PreDrawHUD_IntroLogo")
+			hook.Remove("RenderScreenspaceEffects", "AOTM_RenderScreenspaceEffects_IntroLogo")
 			hook.Remove("HUDPaint", "AOTM_HUDPaint_IntroLogo")
 		end
 	end )

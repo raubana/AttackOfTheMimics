@@ -111,7 +111,7 @@ function SWEP:PrimaryAttack()
 			
 			dmg_scale = dmg_scale * (math.max(forward:Dot(owner:GetAimVector())*1, 0)+1)
 		elseif hitEnt:GetClass() == "prop_door_rotating" then
-			dmg_scale = dmg_scale * 5.0
+			dmg_scale = dmg_scale * 4.0
 		end
 		
 		dmg:SetDamage(self.Primary.Damage*dmg_scale)

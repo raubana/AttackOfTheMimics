@@ -77,7 +77,7 @@ function ENT:Draw()
 	surface.DrawText(message)
 	
 	-- slight screen flicker
-	local color = HSVToColor(0,0,Lerp((math.sin(RealTime()*50)+1)/2, 0.49, 0.5))
+	local color = HSVToColor(0,0,Lerp((math.sin(RealTime()*50)+1)/2, 0.49, 0.51))
 	color.a = 1
 	
 	surface.SetDrawColor(color)

@@ -69,7 +69,11 @@ net.Receive( "AOTM_YouHavePerished", function(len, ply)
 	end )
 	
 	
-	hook.Add( "PreDrawHUD", "AOTM_PreDrawHUD_YouHavePerished", function()
+	hook.Add( "PreDrawHUD", "AOTM_RenderScreenspaceEffects_YouHavePerished", function()
+		if AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets then
+			return
+		end
+	
 		local t = RealTime() - start_time
 		
 		if t < 1.8 then
@@ -118,7 +122,7 @@ net.Receive( "AOTM_YouHavePerished", function(len, ply)
 		
 		if t > 20 then
 			hook.Remove("HUDPaint", "AOTM_HUDPaint_YouHavePerished")
-			hook.Remove("PreDrawHUD", "AOTM_HUDPaint_YouHavePerished")
+			hook.Remove("RenderScreenspaceEffects", "AOTM_RenderScreenspaceEffects_YouHavePerished")
 		end
 	end )
 	
