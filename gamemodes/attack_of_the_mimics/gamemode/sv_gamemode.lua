@@ -33,6 +33,9 @@ function GM:SetStage(stage)
 			self.stage_duration = math.max(PREROUND_DELAY:GetFloat(), 1.0)
 		elseif stage == STAGE_PREROUND then
 			self.stage_duration = 12
+			if GetConVar("aotm_debug_skiplogo"):GetBool() then
+				self.stage_duration = 2
+			end
 		elseif stage == STAGE_ROUND then
 			self.stage_duration = -1
 		elseif stage == STAGE_POSTROUND then
