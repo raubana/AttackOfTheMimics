@@ -12,6 +12,11 @@ include("sh_player_ext.lua")
 include("camera_manager/shared.lua")
 
 
+GM.Name				= "Attack of the Mimics"
+GM.Author			= "raubana"
+GM.TeamBased		= true
+
+
 TEAM_SPEC = TEAM_SPECTATOR
 TEAM_MECHANIC = 1
 TEAM_MIMIC = 2
