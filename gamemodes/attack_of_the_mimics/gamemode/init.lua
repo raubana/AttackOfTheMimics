@@ -6,7 +6,6 @@ include("shared.lua")
 include("sv_resources.lua")
 
 include("camera_manager/init.lua")
--- include("eye_projection/init.lua")
 include("voice_manager/init.lua")
 include("walkietalkie_manager/init.lua")
 include("task_manager/init.lua")
@@ -15,6 +14,8 @@ include("flashlight_manager/init.lua")
 include("idbadge_manager/init.lua")
 include("mimicchatter_manager/init.lua")
 include("music_manager/init.lua")
+
+include("player_angvel_clamp/init.lua")
 
 include("sv_player_ext.lua")
 include("sv_player.lua")
@@ -26,9 +27,3 @@ include("sv_teamselect.lua")
 include("sv_prox_sense.lua")
 
 include("cinematic_modules/init.lua")
-
-
-concommand.Add( "cleanup", function(ply, cmd, args, argStr)
-	if not ply:IsAdmin() then return end
-	game.CleanUpMap()
-end )

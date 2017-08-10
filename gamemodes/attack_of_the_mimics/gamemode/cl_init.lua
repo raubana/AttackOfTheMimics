@@ -11,6 +11,8 @@ include("idbadge_manager/cl_init.lua")
 include("mimicchatter_manager/cl_init.lua")
 include("music_manager/cl_init.lua")
 
+include("player_angvel_clamp/cl_init.lua")
+
 include("cl_teamselect.lua")
 include("cl_thirdperson.lua")
 

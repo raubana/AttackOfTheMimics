@@ -24,6 +24,11 @@ local CREDIT_TEXT_DEFAULT = {
 			"Tai",
 			"Turtleey",
 			"Viz"
+	},
+	
+	{
+		"Special Thanks",
+			"Zephruz"
 	}
 }
 local credit_text = {}
