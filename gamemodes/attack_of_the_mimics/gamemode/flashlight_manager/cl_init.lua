@@ -45,12 +45,38 @@ hook.Add( "Tick", "AOTM_Tick_FlashlightManager", function()
 end )
 
 
+local prng = PerlinNoiseGenerator:create()
+
+
 hook.Add( "PreRender", "AOTM_PreRender_FlashlightManager", function()
+	local localplayer = LocalPlayer()
+	
+	if not IsValid(localplayer) then return end
+
 	for i, ent in ipairs(AOTM_CLIENT_FLASHLIGHT_MANAGER.flashlights) do
 		local proj_text = ent.proj_text
 		
 		if ent.Owner and IsValid(ent.Owner) then
 			local ang = ent.Owner:EyeAngles()
+			if ent.Owner == localplayer then
+				ang = 1.0 * localplayer.target_view_angle
+				
+				local dist = 0.75
+				
+				local t = RealTime()
+				
+				local pitch_offset = 0
+				local yaw_offset = 0
+				local roll_offset = 0
+				
+				pitch_offset = pitch_offset + Lerp(prng:GenPerlinNoise(t + localplayer:EntIndex() + 13,10,0.75,3), -dist, dist)
+				yaw_offset = yaw_offset + Lerp(prng:GenPerlinNoise(t + localplayer:EntIndex() + 37,10,0.75,3), -dist, dist)
+				roll_offset = roll_offset + Lerp(prng:GenPerlinNoise(t + localplayer:EntIndex() + 71,10,0.75,3), -dist, dist)
+				
+				ang.pitch = ang.pitch + pitch_offset
+				ang.yaw = ang.yaw + yaw_offset
+				ang.roll = ang.roll + roll_offset
+			end
 			
 			proj_text:SetAngles(ang)
 			proj_text:SetPos(ent.Owner:EyePos() + (ang:Forward() * 30) - (ang:Up()*3) + (ang:Right()*3))

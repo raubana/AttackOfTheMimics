@@ -1,11 +1,13 @@
 AddCSLuaFile()
 AddCSLuaFile("util.lua")
 AddCSLuaFile("math.lua")
+AddCSLuaFile("perlin_noise.lua")
 AddCSLuaFile("smooth_transition_object.lua")
 AddCSLuaFile("sh_player_ext.lua")
 
 include("util.lua")
 include("math.lua")
+include("perlin_noise.lua")
 include("smooth_transition_object.lua")
 include("sh_player_ext.lua")
 
@@ -31,6 +33,11 @@ function GM:CreateTeams()
 	team.SetUp(TEAM_SPEC,"Spectator",Color(128,128,128),true)
 	team.SetUp(TEAM_MECHANIC,"Mechanic",Color(64,255,255),false)
 	team.SetUp(TEAM_MIMIC,"Mimic",Color(128,64,64),false)
+end
+
+
+function GM:PlayerFootstep( ply, pos, foot, sound, volume, filter )
+	if ply:Team() == TEAM_MIMIC and ply:IsOnGround() then return true end
 end
 
 

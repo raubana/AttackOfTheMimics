@@ -14,7 +14,6 @@ include("music_manager/cl_init.lua")
 include("player_angvel_clamp/cl_init.lua")
 
 include("cl_teamselect.lua")
-include("cl_thirdperson.lua")
 
 include("cinematic_modules/cl_init.lua")
 
@@ -201,6 +200,63 @@ function GM:Think()
 		end
 	end
 end
+
+
+local prng = PerlinNoiseGenerator:create()
+local thirdperson_active = thirdperson_active or false
+
+function GM:CalcView( ply, pos, ang, fov, nearZ, farZ )
+	local t = ply:Team()
+	
+	local origin = pos
+	local angles = ang
+	local fov = fov
+	local znear = nearZ
+	local zfar = farZ
+	local drawviewer = false
+	
+	if ply:Team() != TEAM_SPEC then
+		local time = RealTime()
+	
+		local pitch_offset = Lerp(prng:GenPerlinNoise(time + 13,0.5,1.0,1), -2, 2)
+		local yaw_offset = Lerp(prng:GenPerlinNoise(time + 71,0.5,1.0,1), -2, 2)
+		
+		-- roll can cause motion sickness.
+		
+		angles.pitch = angles.pitch + pitch_offset
+		angles.yaw = angles.yaw + yaw_offset
+	end
+	
+	if ply:Team() == TEAM_MIMIC then
+		local make_visible = false
+	
+		if thirdperson_active then
+			origin = ply:GetPos() - (angles:Forward()*75) + (angles:Up()*25)
+			make_visible = true
+			fov = 140
+		end
+		
+		local mimic_body = ply:GetMimicBody()
+		
+		if IsValid(mimic_body) then
+			mimic_body.do_not_draw = not make_visible
+		end
+	end
+	
+	return {origin = origin,
+			angles = angles,
+			fov = fov,
+			znear = znear,
+			zfar = zfar,
+			drawviewer = drawviewer}
+end
+
+
+hook.Add("PlayerBindPress", "AOTM_PlayerBindPress_ClInit", function(ply, bind, pressed)
+	if bind == "+walk" then
+		thirdperson_active = not thirdperson_active
+	end
+end)
 
 
 function GM:HUDDrawTargetID() -- we don't want a player's ID to be visible.

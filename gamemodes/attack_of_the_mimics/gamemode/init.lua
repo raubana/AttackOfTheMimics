@@ -1,6 +1,5 @@
 AddCSLuaFile("render.lua")
 AddCSLuaFile("cl_teamselect.lua")
-AddCSLuaFile("cl_thirdperson.lua")
 
 include("shared.lua")
 include("sv_resources.lua")

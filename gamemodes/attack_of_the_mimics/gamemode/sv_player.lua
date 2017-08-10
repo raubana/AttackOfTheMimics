@@ -66,7 +66,7 @@ function GM:PlayerSpawn(ply)
 			ply:Give("swep_aotm_mimic")
 			ply:ShouldDropWeapon(false)
 			
-			ply:SetRunSpeed(400)
+			ply:SetRunSpeed(310)
 			ply:SetWalkSpeed(85)
 			ply:SetCrouchedWalkSpeed(0.5)
 			

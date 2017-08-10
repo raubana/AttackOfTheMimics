@@ -6,7 +6,7 @@ SWEP.Base = "weapon_base"
 SWEP.PrintName 				= "Claws"
 SWEP.Category				= "AOTM"
 SWEP.Purpose				= "Do some damage."
-SWEP.Instructions			= "Primary: Attack."
+SWEP.Instructions			= "Primary: Attack.\nSecondary: Scream."
 SWEP.Spawnable				= true
 SWEP.AdminSpawnable			= true
 
@@ -32,12 +32,18 @@ SWEP.DeploySpeed 			= 1.0
 SWEP.Primary.Delay 			= 1.0
 
 SWEP.Primary.Sound 			= Sound("npc/fast_zombie/claw_miss1.wav")
-SWEP.Primary.HitSound 		= Sound("npc/fast_zombie/claw_strike1.wav")
+SWEP.Primary.HitSound 		= {
+	Sound("npc/fast_zombie/claw_strike1.wav"),
+	Sound("npc/fast_zombie/claw_strike2.wav"),
+	Sound("npc/fast_zombie/claw_strike3.wav")
+}
 SWEP.Primary.Damage			= 15
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "none"
+
+SWEP.Secondary.Delay 		= 1.0
 
 SWEP.Secondary.ClipSize		= -1
 SWEP.Secondary.DefaultClip	= -1
@@ -57,15 +63,34 @@ function SWEP:Initialize()
 	if self.SetHoldType then
 		self:SetHoldType(self.HoldType)
 	end
+	
+	if SERVER then
+		self.next_scream_ready = 0
+	end
 end
 
+
+
+function SWEP:SetupDataTables()
+	self:NetworkVar("Bool", 0, "ScreamReady")
+end
+
+if SERVER then
+	function SWEP:Think()
+		if not self:GetScreamReady() then
+			if CurTime() > self.next_scream_ready then
+				self:SetScreamReady(true)
+			end
+		end
+	end
+end
 
 
 function SWEP:PrimaryAttack()
 	if not self:CanPrimaryAttack() then return end
 	
-	self:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
 	self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
+	self:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
 
 	if not IsValid(self.Owner) then return end
 	
@@ -92,7 +117,7 @@ function SWEP:PrimaryAttack()
 
 	-- effects
 	if tr.Hit then
-		self:EmitSound( self.Primary.HitSound )
+		self:EmitSound( self.Primary.HitSound[math.random(#self.Primary.HitSound)] )
 	end
 
 	if SERVER and tr.Hit then
@@ -111,7 +136,7 @@ function SWEP:PrimaryAttack()
 			
 			dmg_scale = dmg_scale * (math.max(forward:Dot(owner:GetAimVector())*1, 0)+1)
 		elseif hitEnt:GetClass() == "prop_door_rotating" then
-			dmg_scale = dmg_scale * 4.0
+			dmg_scale = dmg_scale * 5.0
 		end
 		
 		dmg:SetDamage(self.Primary.Damage*dmg_scale)
@@ -134,6 +159,7 @@ function SWEP:PrimaryAttack()
 	end
 end
 
+
 function SWEP:CanPrimaryAttack()
    if not IsValid(self.Owner) then return end
    
@@ -145,14 +171,34 @@ end
 function SWEP:SecondaryAttack()
 	if not self:CanSecondaryAttack() then return end
 	
+	self:SetNextPrimaryFire( CurTime() + self.Secondary.Delay )
+	self:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
+	
+	if SERVER then
+		self.Owner:EmitSound("npc/fast_zombie/fz_scream1.wav", 95, Lerp(math.random(), 80, 100))
+		
+		self.Owner:SetEnergy(99)
+		
+		self:SetScreamReady(false)
+		self.next_scream_ready = CurTime() + 60
+	end
 end
+
 
 function SWEP:CanSecondaryAttack()
-   if not IsValid(self.Owner) then return end
-   
-   return true
+	if not IsValid(self.Owner) then return end
+	
+	return self:GetScreamReady()
 end
 
 
-
-
+function SWEP:DrawHUD()
+	if not self:GetScreamReady() then
+		surface.SetDrawColor(Color(255,0,0))
+		
+		local w = ScrW()*0.1
+		local h = ScrH()*0.1
+		
+		surface.DrawOutlinedRect((ScrW()-w)/2,0,w,h)
+	end
+end

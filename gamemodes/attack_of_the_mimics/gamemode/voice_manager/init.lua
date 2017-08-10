@@ -18,7 +18,7 @@ local CHATTER_SOUNDS = {
 
 
 
-hook.Add( "PlayerCanHearPlayersVoice", "AOTM_PlayerCanHearPlayersVoice_VoiceManager_Init", function(listener, talker)
+function GM:PlayerCanHearPlayersVoice(listener, talker)
 	if talker:Team() == TEAM_SPEC then
 		if listener:Team() == TEAM_SPEC then 
 			return true, false
@@ -67,7 +67,7 @@ hook.Add( "PlayerCanHearPlayersVoice", "AOTM_PlayerCanHearPlayersVoice_VoiceMana
 	else
 		return false, false
 	end
-end )
+end
 
 
 
