@@ -122,7 +122,7 @@ function SWEP:PrimaryAttack()
 
 	-- effects
 	if tr.Hit then
-		self:EmitSound( table.Random(self.Primary.HitSound) )
+		self:EmitSound( self.Primary.HitSound[math.random(#self.Primary.HitSound)] )
 	end
 
 	if SERVER and tr.Hit then
@@ -227,7 +227,7 @@ function SWEP:Reload()
 	if not self:GetScreamReady() then return end
 	
 	if SERVER then
-		self.Owner:EmitSound( table.Random(self.Scream.Sounds), 95, Lerp(math.random(), 80, 100) )
+		self.Owner:EmitSound( self.Scream.Sounds[math.random(#self.Scream.Sounds)], 95, Lerp(math.random(), 80, 100) )
 		
 		self.Owner:SetEnergy(99)
 		

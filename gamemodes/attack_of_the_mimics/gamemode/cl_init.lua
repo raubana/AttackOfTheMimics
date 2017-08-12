@@ -74,6 +74,8 @@ local end_energy = 1
 local prox_sense = 0.0
 local real_prox_sense = 0.0
 
+local scream_cooldown = 1
+
 
 net.Receive( "AOTM_ProxSense", function(len, ply)
 	real_prox_sense = net.ReadFloat()
