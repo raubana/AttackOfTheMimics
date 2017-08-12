@@ -38,7 +38,7 @@ hook.Add( "PlayerTick", "AOTM_PlayerTick_PlayerExhaustion", function(ply, mv)
 		end
 		
 		if nrg < 100 then
-			nrg = nrg + 2.5*t_dif
+			nrg = nrg + 4*t_dif
 			
 			if ply:GetIsTired() and nrg >= 100 then
 				ply:SetIsTired( false )

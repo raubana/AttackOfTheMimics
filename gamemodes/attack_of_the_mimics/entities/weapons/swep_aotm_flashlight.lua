@@ -24,7 +24,7 @@ SWEP.ViewModel				= "models/weapons/v_crowbar.mdl"
 SWEP.WorldModel				= "models/weapons/w_crowbar.mdl"
 SWEP.HoldType				= "pistol"
 SWEP.UseHands				= true
-SWEP.DrawCrosshair			= false
+SWEP.DrawCrosshair			= true
 
 SWEP.DeploySpeed 			= 5.0
 
