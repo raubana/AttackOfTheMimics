@@ -63,7 +63,6 @@ function GM:PlayerSpawn(ply)
 			ply:SetModel("models/Zombie/Poison.mdl")
 			
 			ply:Give("swep_aotm_claws")
-			ply:Give("swep_aotm_mimic")
 			ply:ShouldDropWeapon(false)
 			
 			ply:SetRunSpeed(310)

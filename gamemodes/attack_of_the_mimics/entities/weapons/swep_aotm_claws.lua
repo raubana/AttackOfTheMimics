@@ -6,7 +6,7 @@ SWEP.Base = "weapon_base"
 SWEP.PrintName 				= "Claws"
 SWEP.Category				= "AOTM"
 SWEP.Purpose				= "Do some damage."
-SWEP.Instructions			= "Primary: Attack.\nSecondary: Scream."
+SWEP.Instructions			= "Primary: Attack.\nSecondary: Mimic.\nReload: Scream."
 SWEP.Spawnable				= true
 SWEP.AdminSpawnable			= true
 
@@ -52,6 +52,11 @@ SWEP.Secondary.Ammo			= "none"
 
 SWEP.DrawAmmo				= false
 
+SWEP.Scream					= {}
+SWEP.Scream.Delay			= 60
+SWEP.Scream.Sounds			= {
+	Sound("npc/fast_zombie/fz_scream1.wav")
+}
 
 SWEP.is_for_mimics = true
 
@@ -117,7 +122,7 @@ function SWEP:PrimaryAttack()
 
 	-- effects
 	if tr.Hit then
-		self:EmitSound( self.Primary.HitSound[math.random(#self.Primary.HitSound)] )
+		self:EmitSound( table.Random(self.Primary.HitSound) )
 	end
 
 	if SERVER and tr.Hit then
@@ -174,13 +179,39 @@ function SWEP:SecondaryAttack()
 	self:SetNextPrimaryFire( CurTime() + self.Secondary.Delay )
 	self:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
 	
+	if not IsValid(self.Owner) then return end
+	
+	local owner = self.Owner
+	
 	if SERVER then
-		self.Owner:EmitSound("npc/fast_zombie/fz_scream1.wav", 95, Lerp(math.random(), 80, 100))
+		owner:LagCompensation(true)
 		
-		self.Owner:SetEnergy(99)
+		local spos = self.Owner:GetShootPos()
+		local sdest = spos + (self.Owner:GetAimVector() * 70)
+
+		local kmins = Vector(1,1,1) * -10
+		local kmaxs = Vector(1,1,1) * 10
+
+		local tr = util.TraceHull({start=spos, endpos=sdest, filter=self.Owner, mask=MASK_SHOT_HULL, mins=kmins, maxs=kmaxs})
+
+		-- Hull might hit environment stuff that line does not hit
+		if not IsValid(tr.Entity) then
+			tr = util.TraceLine({start=spos, endpos=sdest, filter=self.Owner, mask=MASK_SHOT_HULL})
+		end
+
+		local hitEnt = tr.Entity
 		
-		self:SetScreamReady(false)
-		self.next_scream_ready = CurTime() + 60
+		if IsValid(hitEnt) and not hitEnt:IsWorld() then
+			local mimic_body = owner:GetMimicBody()
+			
+			if hitEnt:IsPlayer() and hitEnt:Team() == TEAM_MIMIC then
+				mimic_body:Mimic(hitEnt:GetMimicBody():GetModel(), hitEnt:GetMimicBody():GetSkin())
+			else
+				mimic_body:Mimic(hitEnt:GetModel(), hitEnt:GetSkin())
+			end
+		end
+		
+		owner:LagCompensation(false)
 	end
 end
 
@@ -188,17 +219,21 @@ end
 function SWEP:CanSecondaryAttack()
 	if not IsValid(self.Owner) then return end
 	
-	return self:GetScreamReady()
+	return true
 end
 
 
-function SWEP:DrawHUD()
-	if not self:GetScreamReady() then
-		surface.SetDrawColor(Color(255,0,0))
+function SWEP:Reload()
+	if not self:GetScreamReady() then return end
+	
+	if SERVER then
+		self.Owner:EmitSound( table.Random(self.Scream.Sounds), 95, Lerp(math.random(), 80, 100) )
 		
-		local w = ScrW()*0.1
-		local h = ScrH()*0.1
+		self.Owner:SetEnergy(99)
 		
-		surface.DrawOutlinedRect((ScrW()-w)/2,0,w,h)
+		self:SetScreamReady(false)
+		self.next_scream_ready = CurTime() + self.Scream.Delay
+	else
+		self.scream_init = CurTime()
 	end
 end

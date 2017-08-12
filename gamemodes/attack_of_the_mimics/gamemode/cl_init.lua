@@ -146,6 +146,8 @@ function GM:HUDPaint()
 		-- PROXIMITY SENSE
 		if t == TEAM_MIMIC then
 			drawStat(1,prox_sense,color_black,"PRX")
+			scream_cooldown = (CurTime() - (localplayer:GetActiveWeapon().scream_init or 0)) / localplayer:GetActiveWeapon().Scream.Delay;
+			drawStat(2,scream_cooldown,color_black, "SCR")
 		end
 	end
 end
