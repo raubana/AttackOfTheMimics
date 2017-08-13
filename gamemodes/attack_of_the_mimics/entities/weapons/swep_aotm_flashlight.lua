@@ -39,10 +39,10 @@ SWEP.Primary.HitSound 	= Sound("ambient/voices/citizen_punches2.wav")
 SWEP.Primary.Delay 		= 1.0
 SWEP.Primary.Damage 		= 25
 
-SWEP.Primary.ClipSize		= -1
-SWEP.Primary.DefaultClip	= -1
-SWEP.Primary.Automatic	= true
-SWEP.Primary.Ammo			= "none"
+SWEP.Secondary.ClipSize		= -1
+SWEP.Secondary.DefaultClip	= -1
+SWEP.Secondary.Automatic	= true
+SWEP.Secondary.Ammo			= "none"
 
 SWEP.SwitchOnSound 			= Sound("attack_of_the_mimics/weapons/flashlight/switch_on.wav")
 SWEP.SwitchOffSound 		= Sound("attack_of_the_mimics/weapons/flashlight/switch_off.wav")
