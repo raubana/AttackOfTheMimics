@@ -22,7 +22,7 @@ SWEP.ViewModelFOV			= 62
 SWEP.ViewModelFlip			= false
 SWEP.ViewModel				= "models/weapons/v_crowbar.mdl"
 SWEP.WorldModel				= "models/weapons/w_crowbar.mdl"
-SWEP.HoldType				= "pistol"
+SWEP.HoldType				= "melee"
 SWEP.UseHands				= true
 SWEP.DrawCrosshair			= true
 
@@ -128,7 +128,8 @@ function SWEP:PrimaryAttack()
 	
 	local owner = self.Owner
 	
-	self:SendWeaponAnim(ACT_MELEE_ATTACK1)
+    self.Owner:SetAnimation( PLAYER_ATTACK1 )
+    self:SendWeaponAnim( ACT_VM_HITCENTER )
 
 	owner:LagCompensation(true)
 	
