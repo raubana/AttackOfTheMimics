@@ -6,7 +6,7 @@ SWEP.Base = "weapon_base"
 SWEP.PrintName 				= "Flashlight"
 SWEP.Category				= "AOTM"
 SWEP.Purpose				= "A horror staple."
-SWEP.Instructions			= "Primary: Toggle light\nSecondary: Thrash"
+SWEP.Instructions			= "Primary: Thrash.\nSecondary: Toggle light."
 SWEP.Spawnable				= true
 SWEP.AdminSpawnable			= true
 
@@ -28,26 +28,26 @@ SWEP.DrawCrosshair			= true
 
 SWEP.DeploySpeed 			= 5.0
 
-SWEP.SwitchOnSound 			= Sound("attack_of_the_mimics/weapons/flashlight/switch_on.wav")
-SWEP.SwitchOffSound 		= Sound("attack_of_the_mimics/weapons/flashlight/switch_off.wav")
-
-SWEP.Primary.Delay 			= 0.5
-
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "none"
 
-SWEP.Secondary.Sound 		= Sound("npc/fast_zombie/claw_miss1.wav")
-SWEP.Secondary.HitSound 	= Sound("ambient/voices/citizen_punches2.wav")
+SWEP.Primary.Sound 		= Sound("npc/fast_zombie/claw_miss1.wav")
+SWEP.Primary.HitSound 	= Sound("ambient/voices/citizen_punches2.wav")
 
-SWEP.Secondary.Delay 		= 1.0
-SWEP.Secondary.Damage 		= 25
+SWEP.Primary.Delay 		= 1.0
+SWEP.Primary.Damage 		= 25
 
-SWEP.Secondary.ClipSize		= -1
-SWEP.Secondary.DefaultClip	= -1
-SWEP.Secondary.Automatic	= true
-SWEP.Secondary.Ammo			= "none"
+SWEP.Primary.ClipSize		= -1
+SWEP.Primary.DefaultClip	= -1
+SWEP.Primary.Automatic	= true
+SWEP.Primary.Ammo			= "none"
+
+SWEP.SwitchOnSound 			= Sound("attack_of_the_mimics/weapons/flashlight/switch_on.wav")
+SWEP.SwitchOffSound 		= Sound("attack_of_the_mimics/weapons/flashlight/switch_off.wav")
+
+SWEP.Secondary.Delay 			= 0.5
 
 SWEP.DrawAmmo				= false
 
@@ -126,25 +126,6 @@ function SWEP:PrimaryAttack()
 	self:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
 	self:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 	
-	if IsFirstTimePredicted() then
-		self:ToggleActive()
-	end
-end
-
-function SWEP:CanPrimaryAttack()
-   if not IsValid(self.Owner) then return end
-   
-   return true
-end
-
-
-
-function SWEP:SecondaryAttack()
-	if not self:CanSecondaryAttack() then return end
-	
-	self:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
-	self:SetNextPrimaryFire( CurTime() + self.Secondary.Delay )
-	
 	local owner = self.Owner
 	
 	self:SendWeaponAnim(ACT_MELEE_ATTACK1)
@@ -167,17 +148,17 @@ function SWEP:SecondaryAttack()
 
 	local hitEnt = tr.Entity
 	
-	self:EmitSound( self.Secondary.Sound )
+	self:EmitSound( self.Primary.Sound )
 
 	-- effects
 	if tr.Hit then
-		self:EmitSound( self.Secondary.HitSound )
+		self:EmitSound( self.Primary.HitSound )
 	end
 	
 	if SERVER and tr.Hit then
 		local dmg = DamageInfo()
-		dmg:SetDamage(self.Secondary.Damage)
-		dmg:SetMaxDamage(self.Secondary.Damage)
+		dmg:SetDamage(self.Primary.Damage)
+		dmg:SetMaxDamage(self.Primary.Damage)
 		dmg:SetAttacker(owner)
 		dmg:SetInflictor(self.Weapon or self)
 		dmg:SetDamageForce(owner:GetAimVector() * 6000)
@@ -193,6 +174,26 @@ function SWEP:SecondaryAttack()
 		if IsValid(owner) then
 			owner:SetEnergy(owner:GetEnergy()-25)
 		end
+	end
+end
+
+
+function SWEP:CanPrimaryAttack()
+   if not IsValid(self.Owner) then return end
+   
+   return true
+end
+
+
+
+function SWEP:SecondaryAttack()
+	if not self:CanSecondaryAttack() then return end
+	
+	self:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
+	self:SetNextPrimaryFire( CurTime() + self.Secondary.Delay )
+	
+	if IsFirstTimePredicted() then
+		self:ToggleActive()
 	end
 end
 
