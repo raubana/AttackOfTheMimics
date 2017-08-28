@@ -11,9 +11,15 @@ local CREDIT_TEXT_DEFAULT = {
 	},
 	
 	{
+		"Repository Contributors",
+			"FusionLord"
+	},
+	
+	{
 		"Testers",
 			"Burnt",
 			"Community",
+			"FusionLord",
 			"]N[amoron",
 			"nickthegamer5",
 			"marriwano smoker society.gg",

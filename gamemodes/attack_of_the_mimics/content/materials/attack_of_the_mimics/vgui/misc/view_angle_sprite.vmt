@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" 	"attack_of_the_mimics/vgui/misc/view_angle_sprite"
+	"$additive" 	1
+	"$vertexcolor"	1
+	"$vertexalpha"	1
+}

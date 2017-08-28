@@ -128,7 +128,7 @@ hook.Add( "StartCommand", "AOTM_StartCommand_PlayerAngVelClamp", function(ply, u
 end )
 
 
-
+--[[
 hook.Add( "CalcViewModelView", "AOTM_CalcViewModelView_PlayerAngVelClamp", function( wep, vm, oldPos, oldAng, pos, ang )
 	local localplayer = LocalPlayer()
 	if not IsValid(localplayer) then return end
@@ -152,6 +152,32 @@ hook.Add( "CalcViewModelView", "AOTM_CalcViewModelView_PlayerAngVelClamp", funct
 	)
 	
 	return oldPos, new_angle
+end )
+]]
+
+
+local spriteMat = Material("attack_of_the_mimics/vgui/misc/view_angle_sprite")
+
+hook.Add( "HUDPaint", "AOTM_HUDPaint_PlayerAngVelClamp", function()
+	local localplayer = LocalPlayer()
+	
+	if not IsValid(localplayer) then return end
+	
+	if localplayer:Team() == TEAM_SPEC then return end
+
+	local dist = ang_dist(localplayer.target_view_angle, localplayer.prev_view_angle)
+	local p = math.Clamp((dist-15)/90,0,1)
+	
+	if p > 0 then
+		local size = ScrH()/10
+		local data = (localplayer:EyePos() + localplayer.target_view_angle:Forward()*10000):ToScreen()
+		
+		if data.visible then
+			surface.SetDrawColor(Color(255,255,255,128*p))
+			surface.SetMaterial(spriteMat)
+			surface.DrawTexturedRect(data.x-(size/2), data.y-(size/2), size, size)
+		end
+	end
 end )
 
 

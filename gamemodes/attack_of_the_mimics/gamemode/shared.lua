@@ -37,7 +37,7 @@ end
 
 
 function GM:PlayerFootstep( ply, pos, foot, sound, volume, filter )
-	if ply:Team() == TEAM_MIMIC and ply:IsOnGround() then return true end
+	if ply:Team() == TEAM_MIMIC and ply:IsOnGround() and ply:GetIsHiding() then return true end
 end
 
 

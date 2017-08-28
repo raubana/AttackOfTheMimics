@@ -53,7 +53,7 @@ SWEP.Secondary.Ammo			= "none"
 SWEP.DrawAmmo				= false
 
 SWEP.Scream					= {}
-SWEP.Scream.Delay			= 60
+SWEP.Scream.Delay			= 30
 SWEP.Scream.Sounds			= {
 	Sound("npc/fast_zombie/fz_scream1.wav")
 }
@@ -84,6 +84,7 @@ if SERVER then
 	function SWEP:Think()
 		if not self:GetScreamReady() then
 			if CurTime() > self.next_scream_ready then
+				self.Owner:SetIsHiding(true)
 				self:SetScreamReady(true)
 			end
 		end
@@ -102,6 +103,8 @@ function SWEP:PrimaryAttack()
 	local owner = self.Owner
 
 	owner:LagCompensation(true)
+	
+	owner:AddVCDSequenceToGestureSlot( GESTURE_SLOT_ATTACK_AND_RELOAD, owner:LookupSequence("range_melee"), 0, true )
 
 	local spos = self.Owner:GetShootPos()
 	local sdest = spos + (self.Owner:GetAimVector() * 70)
@@ -141,7 +144,7 @@ function SWEP:PrimaryAttack()
 			
 			dmg_scale = dmg_scale * (math.max(forward:Dot(owner:GetAimVector())*1, 0)+1)
 		elseif hitEnt:GetClass() == "prop_door_rotating" then
-			dmg_scale = dmg_scale * 5.0
+			dmg_scale = dmg_scale * 4.0
 		end
 		
 		dmg:SetDamage(self.Primary.Damage*dmg_scale)
@@ -159,16 +162,17 @@ function SWEP:PrimaryAttack()
 	
 	if SERVER then
 		if IsValid(owner) then
-			owner:SetEnergy(owner:GetEnergy()-25)
+			owner:SetEnergy(owner:GetEnergy()-10)
 		end
 	end
 end
 
 
+
 function SWEP:CanPrimaryAttack()
    if not IsValid(self.Owner) then return end
    
-   return true
+   return not self.Owner:GetIsTired()
 end
 
 
@@ -226,10 +230,14 @@ end
 function SWEP:Reload()
 	if not self:GetScreamReady() then return end
 	
+	self.Owner:AddVCDSequenceToGestureSlot( GESTURE_SLOT_ATTACK_AND_RELOAD, self.Owner:LookupSequence("taunt_zombie"), 0, true )
+	
 	if SERVER then
 		self.Owner:EmitSound( self.Scream.Sounds[math.random(#self.Scream.Sounds)], 95, Lerp(math.random(), 80, 100) )
 		
 		self.Owner:SetEnergy(99)
+		
+		self.Owner:SetIsHiding(false)
 		
 		self:SetScreamReady(false)
 		self.next_scream_ready = CurTime() + self.Scream.Delay

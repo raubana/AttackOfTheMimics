@@ -12,6 +12,11 @@ function plymeta:SetIsTired(bool)
 end
 
 
+function plymeta:SetIsHiding(bool)
+	self:SetNWBool("IsHiding", bool)
+end
+
+
 function plymeta:SetEnergy(float)
 	self:SetNWFloat("Energy", float)
 end

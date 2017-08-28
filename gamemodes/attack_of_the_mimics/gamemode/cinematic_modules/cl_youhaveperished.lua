@@ -46,14 +46,14 @@ net.Receive( "AOTM_YouHavePerished", function(len, ply)
 		local p = 0
 		
 		
-		if t < 4 then
+		if t < 5 then
 			-- do nothing
-		elseif t < 7 then
-			p = math.Clamp( math.InvLerp(t, 4, 7), 0, 1 )
 		elseif t < 10 then
+			p = math.Clamp( math.InvLerp(t, 5, 10), 0, 1 )
+		elseif t < 20 then
 			p = 1.0
-		elseif t < 15 then
-			p = math.Clamp( math.InvLerp(t, 15, 10), 0, 1 )
+		elseif t < 25 then
+			p = math.Clamp( math.InvLerp(t, 20, 25), 0, 1 )
 		end
 		
 		if p > 0 then
@@ -86,15 +86,15 @@ net.Receive( "AOTM_YouHavePerished", function(len, ply)
 			color_mod["$pp_colour_addg"] = 0.0
 			color_mod["$pp_colour_addb"] = 0.0
 			color_mod["$pp_colour_brightness"] = Lerp(math.pow(p,16), -0.05, -1.0)
-			color_mod["$pp_colour_contrast"] = -10
+			color_mod["$pp_colour_contrast"] = -25
 			color_mod["$pp_colour_colour"] = 0.0
-			color_mod["$pp_colour_mulr"] = -10.0
+			color_mod["$pp_colour_mulr"] = 0.0
 			color_mod["$pp_colour_mulg"] = 0.0
 			color_mod["$pp_colour_mulb"] = 0.0
 			
 			DrawColorModify(color_mod)
 		else
-			local p = math.Clamp( math.InvLerp(t, 1.8, 20) , 0, 1)
+			local p = math.Clamp( math.InvLerp(t, 1.8, 30) , 0, 1)
 			
 			local color_mod = {}
 			color_mod["$pp_colour_addr"] = 0.0
@@ -120,7 +120,7 @@ net.Receive( "AOTM_YouHavePerished", function(len, ply)
 			hook.Remove("HUDShouldDraw", "AOTM_HUDShouldDraw_YouHavePerished")
 		end
 		
-		if t > 20 then
+		if t > 30 then
 			hook.Remove("HUDPaint", "AOTM_HUDPaint_YouHavePerished")
 			hook.Remove("RenderScreenspaceEffects", "AOTM_RenderScreenspaceEffects_YouHavePerished")
 		end

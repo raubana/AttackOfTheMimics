@@ -133,8 +133,12 @@ function GM:Tick()
 			-- to pick a player, each time using roulette selection to
 			-- pick from the remaining players.
 			
-			local mimic_count = math.floor(math.Clamp(MIMIC2MECHANIC_RATIO:GetFloat(),0,1)*#players_to_play)
-			local mechanic_count = #players_to_play - mimic_count
+			local p = math.Clamp(MIMIC2MECHANIC_RATIO:GetFloat(),0,1)
+			
+			local mimic_count = math.ceil(p*#players_to_play)
+			local mechanic_count = math.ceil((1-p)*#players_to_play)
+			
+			print("PICKING", #players_to_play, mimic_count, mechanic_count)
 			
 			local pick_order = {}
 			for i = 1, mimic_count do table.insert(pick_order, TEAM_MIMIC) end

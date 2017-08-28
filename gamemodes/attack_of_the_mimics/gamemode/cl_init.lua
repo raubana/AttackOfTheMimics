@@ -11,9 +11,11 @@ include("idbadge_manager/cl_init.lua")
 include("mimicchatter_manager/cl_init.lua")
 include("music_manager/cl_init.lua")
 
+include("ear_static/cl_init.lua")
 include("player_angvel_clamp/cl_init.lua")
 
 include("cl_teamselect.lua")
+include("cl_dof.lua")
 
 include("cinematic_modules/cl_init.lua")
 
@@ -71,8 +73,10 @@ end
 local start_energy = 1
 local end_energy = 1
 
+--[[
 local prox_sense = 0.0
 local real_prox_sense = 0.0
+]]
 
 local scream_cooldown = 1
 
@@ -125,7 +129,7 @@ function GM:HUDPaint()
 		end
 		
 		trans_amount = realframetime*0.01
-		prox_sense = math.Approach(prox_sense, real_prox_sense, trans_amount)
+		-- prox_sense = math.Approach(prox_sense, real_prox_sense, trans_amount)
 		
 		local h, s, v, color
 		
@@ -147,7 +151,7 @@ function GM:HUDPaint()
 		
 		-- PROXIMITY SENSE
 		if t == TEAM_MIMIC then
-			drawStat(1,prox_sense,color_black,"PRX")
+			-- drawStat(1,prox_sense,color_black,"PRX")
 			scream_cooldown = (CurTime() - (localplayer:GetActiveWeapon().scream_init or 0)) / localplayer:GetActiveWeapon().Scream.Delay;
 			drawStat(2,scream_cooldown,color_black, "SCR")
 		end
@@ -157,7 +161,6 @@ end
 
 local nightvision_active = false
 local nightvision_transition = SMOOTH_TRANS:create(1.0)
-
 
 function GM:Think()
 	local localplayer = LocalPlayer()
@@ -198,7 +201,7 @@ function GM:Think()
 				dlight.b = 8*p
 				dlight.brightness = 1.0
 				dlight.Decay = 1000
-				dlight.Size = 1024
+				dlight.Size = size
 				dlight.DieTime = CurTime() + 1.0
 			end
 		end
@@ -207,7 +210,7 @@ end
 
 
 local prng = PerlinNoiseGenerator:create()
-local thirdperson_active = thirdperson_active or false
+local thirdperson_active = thirdperson_active
 
 function GM:CalcView( ply, pos, ang, fov, nearZ, farZ )
 	local t = ply:Team()
@@ -235,9 +238,12 @@ function GM:CalcView( ply, pos, ang, fov, nearZ, farZ )
 		local make_visible = false
 	
 		if thirdperson_active then
-			origin = ply:GetPos() - (angles:Forward()*75) + (angles:Up()*25)
+			-- angles:RotateAroundAxis(angles:Right(),-45)
+			origin = ply:GetPos() - (angles:Forward()*90) + (angles:Up()*30)
 			make_visible = true
 			fov = 140
+			
+			drawviewer = true
 		end
 		
 		local mimic_body = ply:GetMimicBody()
@@ -268,5 +274,8 @@ end
 
 
 function GM:PrePlayerDraw( ply )
-	return ply:Team() != TEAM_MECHANIC
+	local is_visible = ply:Team() != TEAM_MIMIC
+	ply:DrawShadow(is_visible)
+
+	return not is_visible
 end

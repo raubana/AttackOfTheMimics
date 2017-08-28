@@ -134,7 +134,7 @@ function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, ori
 end
 
 
-hook.Add( "PostRender", "AOTM_PostRender_CameraManager_ClInit", function()
+hook.Add( "PreRender", "AOTM_PreRender_CameraManager_ClInit", function()
 	if not AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets then
 		AOTM_CLIENT_CAMERA_MANAGER.updating_render_targets = true
 		

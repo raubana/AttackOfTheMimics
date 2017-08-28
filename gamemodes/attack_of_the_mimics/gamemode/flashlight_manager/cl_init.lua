@@ -33,7 +33,7 @@ hook.Add( "Tick", "AOTM_Tick_FlashlightManager", function()
 			proj_text = ProjectedTexture()
 			proj_text:SetEnableShadows(true)
 			proj_text:SetTexture(FLASHLIGHT_TEXTURE)
-			proj_text:SetBrightness(3)
+			proj_text:SetBrightness(1)
 			proj_text:SetHorizontalFOV(FOV)
 			proj_text:SetVerticalFOV(FOV)
 			proj_text:SetFarZ(FARZ)
@@ -84,13 +84,17 @@ hook.Add( "PreRender", "AOTM_PreRender_FlashlightManager", function()
 			
 			local dlight = DynamicLight( ent.Owner:EntIndex() + 1 )
 			if ( dlight ) then
-				dlight.pos = ent.Owner:EyePos() + (ang:Forward()*25)
+				if ent.Owner == localplayer then
+					dlight.pos = ent.Owner:EyePos()
+				else
+					dlight.pos = ent.Owner:EyePos() + (ang:Forward()*25)
+				end
 				dlight.r = 255
 				dlight.g = 255
 				dlight.b = 255
 				dlight.brightness = 1.0
 				dlight.Decay = 1000
-				dlight.Size = 64
+				dlight.Size = 128
 				dlight.DieTime = CurTime() + 1.0
 			end
 		else

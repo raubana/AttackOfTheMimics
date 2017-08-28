@@ -33,21 +33,21 @@ SWEP.Primary.DefaultClip	= -1
 SWEP.Primary.Automatic		= false
 SWEP.Primary.Ammo			= "none"
 
-SWEP.Primary.Sound 		= Sound("npc/fast_zombie/claw_miss1.wav")
-SWEP.Primary.HitSound 	= Sound("ambient/voices/citizen_punches2.wav")
+SWEP.Primary.Sound 			= Sound("npc/fast_zombie/claw_miss1.wav")
+SWEP.Primary.HitSound 		= Sound("ambient/voices/citizen_punches2.wav")
 
-SWEP.Primary.Delay 		= 1.0
-SWEP.Primary.Damage 		= 25
+SWEP.Primary.Delay 			= 1.0
+SWEP.Primary.Damage 		= 10
 
 SWEP.Primary.ClipSize		= -1
 SWEP.Primary.DefaultClip	= -1
-SWEP.Primary.Automatic	= true
+SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "none"
 
 SWEP.SwitchOnSound 			= Sound("attack_of_the_mimics/weapons/flashlight/switch_on.wav")
 SWEP.SwitchOffSound 		= Sound("attack_of_the_mimics/weapons/flashlight/switch_off.wav")
 
-SWEP.Secondary.Delay 			= 0.5
+SWEP.Secondary.Delay 		= 0.5
 
 SWEP.DrawAmmo				= false
 
@@ -131,7 +131,6 @@ function SWEP:PrimaryAttack()
 	self:SendWeaponAnim(ACT_MELEE_ATTACK1)
 
 	owner:LagCompensation(true)
-	
 
 	local spos = self.Owner:GetShootPos()
 	local sdest = spos + (self.Owner:GetAimVector() * 70)
@@ -166,13 +165,17 @@ function SWEP:PrimaryAttack()
 		dmg:SetDamageType(DMG_CLUB)
 
 		hitEnt:DispatchTraceAttack(dmg, spos + (owner:GetAimVector() * 3), sdest)
+		
+		if hitEnt:IsPlayer() then
+			hitEnt:SetEnergy(hitEnt:GetEnergy() - 25)
+		end
 	end
 	
 	owner:LagCompensation(false)
 	
 	if SERVER then
 		if IsValid(owner) then
-			owner:SetEnergy(owner:GetEnergy()-25)
+			owner:SetEnergy(owner:GetEnergy()-10)
 		end
 	end
 end

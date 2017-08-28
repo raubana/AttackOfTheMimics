@@ -1,0 +1,3 @@
+
+
+print("ear static shared")

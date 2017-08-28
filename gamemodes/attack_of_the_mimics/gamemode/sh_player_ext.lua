@@ -13,6 +13,11 @@ function plymeta:GetIsTired()
 end
 
 
+function plymeta:GetIsHiding()
+	return self:GetNWBool("IsHiding")
+end
+
+
 function plymeta:GetEnergy()
 	return self:GetNWFloat("Energy")
 end

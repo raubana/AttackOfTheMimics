@@ -1,5 +1,6 @@
 AddCSLuaFile("render.lua")
 AddCSLuaFile("cl_teamselect.lua")
+AddCSLuaFile("cl_dof.lua")
 
 include("shared.lua")
 include("sv_resources.lua")
@@ -14,6 +15,7 @@ include("idbadge_manager/init.lua")
 include("mimicchatter_manager/init.lua")
 include("music_manager/init.lua")
 
+include("ear_static/init.lua")
 include("player_angvel_clamp/init.lua")
 
 include("sv_player_ext.lua")

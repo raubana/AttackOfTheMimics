@@ -50,7 +50,7 @@ function GM:PlayerSpawn(ply)
 			ply:ShouldDropWeapon(true)
 			
 			ply:SetRunSpeed(300)
-			ply:SetWalkSpeed(90)
+			ply:SetWalkSpeed(75)
 			ply:SetCrouchedWalkSpeed(0.5)
 			
 			local ent = ents.Create("sent_aotm_id_badge")
@@ -60,13 +60,13 @@ function GM:PlayerSpawn(ply)
 			
 			AOTM_SERVER_IDBADGE_MANAGER:AddBadge(ply, ent)
 		elseif t == TEAM_MIMIC then
-			ply:SetModel("models/Zombie/Poison.mdl")
+			ply:SetModel("models/player/zombie_fast.mdl")
 			
 			ply:Give("swep_aotm_claws")
 			ply:ShouldDropWeapon(false)
 			
-			ply:SetRunSpeed(310)
-			ply:SetWalkSpeed(85)
+			ply:SetRunSpeed(200)
+			ply:SetWalkSpeed(75)
 			ply:SetCrouchedWalkSpeed(0.5)
 			
 			local ent = ents.Create("sent_aotm_mimicbody")

@@ -21,7 +21,7 @@ hook.Add( "PlayerTick", "AOTM_PlayerTick_PlayerExhaustion", function(ply, mv)
 			end
 			
 			local speed = ply:GetVelocity():Length()
-			if speed > 200 then
+			if speed > 150 then
 				nrg = nrg - 10.0*t_dif
 			end
 		end
