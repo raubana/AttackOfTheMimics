@@ -22,7 +22,7 @@ SWEP.ViewModelFOV			= 62
 SWEP.ViewModelFlip			= false
 SWEP.ViewModel				= "models/weapons/v_crowbar.mdl"
 SWEP.WorldModel				= "models/weapons/w_crowbar.mdl"
-SWEP.HoldType				= "pistol"
+SWEP.HoldType				= "melee"
 SWEP.UseHands				= true
 SWEP.DrawCrosshair			= true
 
@@ -39,10 +39,10 @@ SWEP.Primary.HitSound 		= Sound("ambient/voices/citizen_punches2.wav")
 SWEP.Primary.Delay 			= 1.0
 SWEP.Primary.Damage 		= 10
 
-SWEP.Primary.ClipSize		= -1
-SWEP.Primary.DefaultClip	= -1
-SWEP.Primary.Automatic		= true
-SWEP.Primary.Ammo			= "none"
+SWEP.Secondary.ClipSize		= -1
+SWEP.Secondary.DefaultClip	= -1
+SWEP.Secondary.Automatic	= true
+SWEP.Secondary.Ammo			= "none"
 
 SWEP.SwitchOnSound 			= Sound("attack_of_the_mimics/weapons/flashlight/switch_on.wav")
 SWEP.SwitchOffSound 		= Sound("attack_of_the_mimics/weapons/flashlight/switch_off.wav")
@@ -128,7 +128,8 @@ function SWEP:PrimaryAttack()
 	
 	local owner = self.Owner
 	
-	self:SendWeaponAnim(ACT_MELEE_ATTACK1)
+    self.Owner:SetAnimation( PLAYER_ATTACK1 )
+    self:SendWeaponAnim( ACT_VM_HITCENTER )
 
 	owner:LagCompensation(true)
 
