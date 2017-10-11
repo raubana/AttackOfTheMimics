@@ -2,7 +2,7 @@ print("running")
 
 
 local DOF_LENGTH = 512
-local DOF_LAYERS = math.ceil(ScrH()/100)
+local DOF_LAYERS = math.ceil(ScrH()/200)
 
 local MAX_FOCUS_DIST = 768
 

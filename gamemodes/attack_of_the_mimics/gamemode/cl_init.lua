@@ -187,19 +187,21 @@ function GM:Think()
 		
 		local p = nightvision_transition:GetPercent()
 		
-		local size = 1024
+		local brightness_m = 1.0
+		local size = 512
 		if t == TEAM_MIMIC then
-			size = 256
+			size = 64
+			brightness_m = 5.0
 		end
 		
 		if nightvision_active then
 			local dlight = DynamicLight( localplayer:EntIndex() + 1 )
 			if ( dlight ) then
 				dlight.pos = localplayer:GetPos()+Vector(0,0,25)
-				dlight.r = 64*p
-				dlight.g = 8*p
-				dlight.b = 8*p
-				dlight.brightness = 1.0
+				dlight.r = 255*p
+				dlight.g = 4*p
+				dlight.b = 4*p
+				dlight.brightness = brightness_m
 				dlight.Decay = 1000
 				dlight.Size = size
 				dlight.DieTime = CurTime() + 1.0
@@ -210,7 +212,14 @@ end
 
 
 local prng = PerlinNoiseGenerator:create()
-local thirdperson_active = thirdperson_active
+local thirdperson_active = true
+local thirdperson_trans = SMOOTH_TRANS:create(2.0)
+
+local next_thirdperson_trace = 0
+local thirdperson_trace_freq = 0.25
+local last_thirdperson_dist = 0
+
+local thirdperson_dist = 0
 
 function GM:CalcView( ply, pos, ang, fov, nearZ, farZ )
 	local t = ply:Team()
@@ -234,14 +243,51 @@ function GM:CalcView( ply, pos, ang, fov, nearZ, farZ )
 		angles.yaw = angles.yaw + yaw_offset
 	end
 	
+	thirdperson_trans:SetDirection(thirdperson_active)
+	thirdperson_trans:Update()
+	
 	if ply:Team() == TEAM_MIMIC then
 		local make_visible = false
-	
-		if thirdperson_active then
+		
+		local p = thirdperson_trans:GetPercent()
+		
+		if p > 0 then
+			local realtime = RealTime()
+			
+			if p < 1 then
+				p = ((-math.cos(math.pi*p))+1)/2
+			end
+			
+			if realtime >= next_thirdperson_trace then
+				local tr = util.TraceHull({
+					start = ply:EyePos(),
+					endpos = ply:EyePos() - (angles:Forward()*90*p),
+					mins = Vector(1,1,1)*-15,
+					maxs = Vector(1,1,1)*15,
+					filter = {ply},
+					mask = MASK_ALL
+				})
+				
+				last_thirdperson_dist = tr.StartPos:Distance(tr.HitPos)
+				
+				next_thirdperson_trace = realtime + (1/60)
+			end
+			
+			thirdperson_dist = Lerp(1-math.pow(0.000001,RealFrameTime()), thirdperson_dist, last_thirdperson_dist)
+		
 			-- angles:RotateAroundAxis(angles:Right(),-45)
-			origin = ply:GetPos() - (angles:Forward()*90) + (angles:Up()*30)
+			local new_origin = ply:EyePos() - (angles:Forward()*thirdperson_dist)
+			local new_fov = 90
+			
 			make_visible = true
-			fov = 140
+			
+			if p < 1 then
+				origin = LerpVector(p, origin, new_origin)
+				fov = Lerp(p, fov, new_fov)
+			else
+				origin = new_origin
+				fov = new_fov
+			end
 			
 			drawviewer = true
 		end
