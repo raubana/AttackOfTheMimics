@@ -198,7 +198,7 @@ The mechanics have a set of useful tools:
 
 The mimics must kill the mechanics before they complete their tasks to win.
 
-The mimic can see in the dark a little. They can also toggle between first and
+Mimics can see in the dark a little. They can also toggle between first and
 third person perspective by pressing their walk key (Default: Left-Alt).
 
 The mimics have only one tool, but several abilities:
@@ -206,39 +206,36 @@ The mimics have only one tool, but several abilities:
 1)  Attack
 	
     Press your primary fire (Default: Mouse Left Button) to attack.
-
+    
     By default, the claws do 15 damage. However, the claws can do up to 4 times
-    this amount of damage if the conditions are right.
-
-    You can do up to 2 times more damage based on how much stamina you have, as
-    long and you're not tired.
-
-    You can also do up to 2 times more damage if you attack a person's back.
-	
-	You cannot attack if you are tired!
-	
-	
+    this amount of damage if the conditions are right:
+    
+        You can do up to 2 times more damage based on how much stamina you have.
+        You can do up to 2 times more damage if you attack a person's back.
+    
+    You cannot attack if you are tired!
+    
+    
 2)  Mimic
     
     The mimic ability is used to mimic props around the map. To mimic a prop, go
-	up to it and press your secondary fire (Default: Mouse Right Button) while
-	aiming at it.
+    up to it and press your secondary fire (Default: Mouse Right Button) while
+    aiming at it.
 	
     Bear in mind, you can only mimic props of certian dimentions and volumes.
     You might not be able to mimic something if it's too thin, too small, too
     long, too tall, or too large.
 
     Remember: hit your walk key (Default: Left-Alt) to toggle between first
-	person and third person perspective.
+    person and third person perspective.
 	
 	
 3)  Scream
+    The scream ability allows a mimic to refill their stamina completly, but
+    there is a 30 second cool-down period. To scream, press your reload key
+    (Default: R).
     
-	The scream ability allows a mimic to refill their stamina completly, but
-	there is a 30 second cool-down period. To scream, press your reload key
-	(Default: R).
-	
-	During the cool-down period, a mimic will be louder.
+    During the cool-down period, a mimic will be louder.
 
 	
 
