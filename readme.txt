@@ -1,5 +1,5 @@
 Attack of the Mimics - ReadMe
-Updated 8/3/2017
+Updated 10/11/2017
 Dylan J. Raub
 
 
@@ -12,11 +12,11 @@ Dylan J. Raub
 Hi, 
 
 I created this gamemode as part of the Summer 2017 Gmod Store Gamemode
-contest. My intention for this gamemode was to create a setting where people
-could scare and be scared by one another for the fun of it.
+contest. My intent for this gamemode was to create a setting where people
+could scare one another for the fun of it.
 
 I feel it's important I add in this part because it affects how fun the gamemode
-for the people that play it.
+is for the people that play it:
 
 First, if you don't allow yourself to be scared, you will not have fun. 
 
@@ -26,18 +26,17 @@ Thirdly, take things slow. This is not a fast-paced gamemode.
 
 Fourth, it's more fun when mimics go out of their way to do creepy stuff.
 For instance, if a mechanic is unaware you're there, you can briefly tap your
-voice key to do some "mimic chatter" noise, or you can throw another prop and
-then go back into hiding. Another thing you can do is move existing props into
-unusual positions around the map to confuse the mechanics. Think about it this
-way: the second thing I mentioned was about focusing on winning not being fun.
-So the alternative would be to focus on being scary.
+voice key to do some "mimic chatter" noise. Another thing you can do is move
+existing props into unusual positions around the map to confuse the mechanics.
+Think about it this way: the second thing I mentioned was how focusing on
+winning isn't fun, so the alternative would be to focus on being scary.
 
-Lastly, I need to mention that me and Turtleey only had two weeks to make it,
+Lastly, I need to mention that Turtleey and I only had two weeks to make this,
 given we started pretty late into the contest, so there was a lot of stuff I
-wanted to put in that I simply didn't have time for. Even so, I believe we did
-a pretty good job of creating a world for people to enjoy being frightened in.
+wanted to put in I simply didn't have time for. Even so, I believe we did a
+pretty decent job of creating a world for people to enjoy being frightened in.
 
-I hope you do enjoy your time playing this gamemode.
+I hope you enjoy playing this gamemode.
 
 - Dylan Raub (raubana)
 
@@ -69,7 +68,7 @@ the addons folder.
 This is just for those who don't want to download the content straight from the
 server:
 
-   http://steamcommunity.com/sharedfiles/filedetails/?id=1096845726
+  http://steamcommunity.com/sharedfiles/filedetails/?id=1096845726
 
 
 
@@ -78,10 +77,10 @@ server:
   aotm_mall_v1.bsp
 ================================================================================
 
-The gamemode used to come with a map for your enjoyment. However, there were
+The gamemode originally came with a map for your enjoyment. However, there were
 problems with errors. Instead, here is the link to the packed version:
 
-   http://steamcommunity.com/sharedfiles/filedetails/?id=1095448769
+  http://steamcommunity.com/sharedfiles/filedetails/?id=1095448769
 
 If you're running a dedicated server, you can use GMAD to unpack the .bsp from
 the .gma. Shh!
@@ -96,14 +95,16 @@ the .gma. Shh!
 Players will spawn into the server in "spectate mode". To move from
 "spectate mode" to "play mode," a player must hit their Menu key (Default: Q) to
 open the team-select window and then press the button with the text "I want to
-play!" Note that this will not take effect until a new round has begun.
+play!" Note that the mode you select will be active immediatly, but it doesn't
+take affect until a new round starts. For example, if a round is active and you
+move from "spectate mode" into "play mode," you will not spawn.
 
-Players will remain in whichever mode they picked between rounds until they
-disconnect from the server.
+Players will remain in whichever mode they pick until they disconnect from the
+server or when the map changes.
 
-Once the minimum number of players have moved into "play mode," the gamemode
-will start a timer that counts down. When it reaches zero, a new round will
-begin.
+Once the minimum number of players have moved into "play mode" before a round,
+the gameode will start a timer that counts down. When it reaches zero a new
+round will commence.
 
 Players are assigned roles randomly. However, the gamemode uses prior play
 history to help assign roles to players. This means a player who hasn't played
@@ -134,7 +135,8 @@ stamina, you will no longer be tired.
 ================================================================================
 
 The mechanics have to complete a set of tasks in order to win. Naturally, they
-must also survive. They can also win by killing all of the mimics. 
+must also survive. They can also win by killing all of the mimics, but this is
+very risky. 
 
 The mechanics have a set of useful tools:
 
@@ -179,10 +181,11 @@ The mechanics have a set of useful tools:
 4)  Flashlight
     
     The flashlight can be used both as a tool and a weapon. To toggle the light,
-    press your primary fire (Default: Mouse Left Button). To attack with the
-    flashlight, hit your secondary fire (Default: Mouse Right Button).
+    press your secondary fire (Default: Mouse Right Button). To attack with the
+    flashlight, press your primary fire (Default: Mouse Left Button).
 
-    Each attack with the flashlight does 25 damage.
+    Each attack with the flashlight does 10 damage and will affect a target's
+    stamina.
 
     The flashlight can only be on while it is deployed.
 
@@ -193,19 +196,16 @@ The mechanics have a set of useful tools:
   How To Play - Mimic
 ================================================================================
 
-The mimics must kill the mechanics before their tasks are completed to win.
+The mimics must kill the mechanics before they complete their tasks to win.
 
-The mimic can see a little in the dark. They can also toggle between first and
-third person by hitting their Left-Alt key. Futhermore, mimics can sense how
-close they are to a mechanic, which is shown on the HUD at the bottom-right as
-the bar labeled PRX (for proximity).
+The mimic can see in the dark a little. They can also toggle between first and
+third person perspective by pressing their walk key (Default: Left-Alt).
 
-The mimics have two tools:
+The mimics have only one tool, but several abilities:
 
-1)  Claws
+1)  Attack
 	
-    Press your primary fire button (Default: Mouse Left Button) to attack
-    whatever is in front of you.
+    Press your primary fire (Default: Mouse Left Button) to attack.
 
     By default, the claws do 15 damage. However, the claws can do up to 4 times
     this amount of damage if the conditions are right.
@@ -215,18 +215,31 @@ The mimics have two tools:
 
     You can also do up to 2 times more damage if you attack a person's back.
 	
+	You cannot attack if you are tired!
+	
 	
 2)  Mimic
     
-    The mimic tool is used to mimic props around the map. To mimic a prop, go up
-    to it and press your primary fire (Default: Mouse Left Button) while aiming
-    at it.
-
+    The mimic ability is used to mimic props around the map. To mimic a prop, go
+	up to it and press your secondary fire (Default: Mouse Right Button) while
+	aiming at it.
+	
     Bear in mind, you can only mimic props of certian dimentions and volumes.
     You might not be able to mimic something if it's too thin, too small, too
     long, too tall, or too large.
 
-    Remember: hit your Left-Alt button to toggle between first person and third
-    person.
-
+    Remember: hit your walk key (Default: Left-Alt) to toggle between first
+	person and third person perspective.
+	
+	
+3)  Scream
     
+	The scream ability allows a mimic to refill their stamina completly, but
+	there is a 30 second cool-down period. To scream, press your reload key
+	(Default: R).
+	
+	During the cool-down period, a mimic will be louder.
+
+	
+
+
