@@ -34,7 +34,10 @@ local CREDIT_TEXT_DEFAULT = {
 	
 	{
 		"Special Thanks",
-			"Zephruz"
+			"Burnt", -- best tester ever
+			"Bobblehead", --helping me get in contact with turtleey and stuff.
+			"Turtleey", -- saved my butt during the contest
+			"Zephruz" -- i think he gave me advice about clientside models...?
 	}
 }
 local credit_text = {}

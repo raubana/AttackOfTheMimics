@@ -61,6 +61,13 @@ SWEP.Scream.Sounds			= {
 SWEP.is_for_mimics = true
 
 
+local CLAW_DAMAGE_SCALE
+if SERVER then
+	CLAW_DAMAGE_SCALE = CreateConVar("aotm_mimic_claw_damage_scale", "1.0", FCVAR_SERVER_CAN_EXECUTE+FCVAR_NOTIFY+FCVAR_ARCHIVE)
+elseif CLIENT then
+	CLAW_DAMAGE_SCALE = GetConVar("aotm_mimic_claw_damage_scale")
+end
+
 
 function SWEP:Initialize()
 	self:SetDeploySpeed(self.DeploySpeed)
@@ -141,11 +148,15 @@ function SWEP:PrimaryAttack()
 			local ang = hitEnt:GetAngles()
 			ang.pitch = 0
 			local forward = ang:Forward()
+			local dist = hitEnt:GetPos():Distance(owner:GetPos())
 			
 			dmg_scale = dmg_scale * (math.max(forward:Dot(owner:GetAimVector())*1, 0)+1)
+			dmg_scale = dmg_scale * math.Clamp( math.InvLerp(dist, 90, 35), 0.1, 1 )
 		elseif hitEnt:GetClass() == "prop_door_rotating" then
 			dmg_scale = dmg_scale * 4.0
 		end
+		
+		dmg_scale = dmg_scale * CLAW_DAMAGE_SCALE:GetFloat(1.0)
 		
 		dmg:SetDamage(self.Primary.Damage*dmg_scale)
 		dmg:SetMaxDamage(self.Primary.Damage*dmg_scale)
@@ -162,7 +173,7 @@ function SWEP:PrimaryAttack()
 	
 	if SERVER then
 		if IsValid(owner) then
-			owner:SetEnergy(owner:GetEnergy()-10)
+			owner:SetEnergy(owner:GetEnergy()-20)
 		end
 	end
 end
@@ -234,6 +245,7 @@ function SWEP:Reload()
 	
 	if SERVER then
 		self.Owner:EmitSound( self.Scream.Sounds[math.random(#self.Scream.Sounds)], 95, Lerp(math.random(), 80, 100) )
+		hook.Call( "AOTM_MimicScream", nil, self.Owner:GetPos() )
 		
 		self.Owner:SetEnergy(99)
 		

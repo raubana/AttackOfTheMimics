@@ -1,9 +1,8 @@
 include("shared.lua")
 
-
-local SPEED = 180
-local EASE_THRESHOLD = 25.0
-local EASE_RATE = 0.98
+local SPEED = 250
+local EASE_THRESHOLD = 50.0
+local EASE_RATE = 0.99
 
 
 local function angle_dif_abs(a, b)

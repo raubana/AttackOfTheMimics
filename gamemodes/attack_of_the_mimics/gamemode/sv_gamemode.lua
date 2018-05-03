@@ -93,6 +93,7 @@ function GM:Tick()
 			local ply_list = player.GetAll()
 			local i = #ply_list
 			while i > 0 do
+				print(ply_list[i], ply_list[i]:SteamID())
 				if not ply_list[i].wants_to_play then
 					table.remove(ply_list, i)
 				end
@@ -135,8 +136,13 @@ function GM:Tick()
 			
 			local p = math.Clamp(MIMIC2MECHANIC_RATIO:GetFloat(),0,1)
 			
-			local mimic_count = math.ceil(p*#players_to_play)
+			local mimic_count = math.floor(p*#players_to_play)
 			local mechanic_count = #players_to_play - mimic_count --math.ceil((1-p)*#players_to_play)
+			
+			if mechanic_count == 0 and #players_to_play > 1 and p > 0 and p < 1 then
+				mimic_count = mimic_count - 1
+				mechanic_count = 1
+			end
 			
 			print("PICKING", #players_to_play, mimic_count, mechanic_count)
 			
@@ -241,4 +247,3 @@ function GM:CheckGameState()
 		end
 	end
 end
-

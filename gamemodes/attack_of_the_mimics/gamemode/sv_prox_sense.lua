@@ -1,4 +1,5 @@
---[[
+
+
 hook.Add( "Initialize", "AOTM_Initialize_ProximitySense_Init", function( )
 	util.AddNetworkString("AOTM_ProxSense")
 end )
@@ -7,6 +8,7 @@ end )
 local next_update_prox_sense = next_update_prox_sense or 0
 
 hook.Add( "Tick", "AOTM_Tick_ProximitySense_Init", function()
+	--[[
 	local curtime = CurTime()
 	
 	if curtime >= next_update_prox_sense then
@@ -31,5 +33,5 @@ hook.Add( "Tick", "AOTM_Tick_ProximitySense_Init", function()
 		
 		next_update_prox_sense = curtime + 2.0
 	end
+	]]
 end )
-]]

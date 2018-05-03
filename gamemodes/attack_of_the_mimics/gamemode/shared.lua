@@ -37,7 +37,32 @@ end
 
 
 function GM:PlayerFootstep( ply, pos, foot, sound, volume, filter )
-	if ply:Team() == TEAM_MIMIC and ply:IsOnGround() and ply:GetIsHiding() then return true end
+	local new_volume = math.min(math.pow(volume*2, 2), 1)
+	
+	if CLIENT then
+		ply:EmitSound(sound, 75, 100, new_volume, CHAN_BODY)
+	elseif SERVER then 
+		hook.Call( "EntityEmitSound", nil, {
+			SoundName = sound,
+			OriginalSoundName = sound,
+			SoundTime = 0,
+			DSP = 0,
+			SoundLevel = 75,
+			Pitch = 100,
+			Flags = 0,
+			Channel = CHAN_BODY,
+			Volume = new_volume,
+			Entity = ply,
+			Pos = ply:GetPos()
+		} )
+	end
+	
+	return true
+end
+
+
+function GM:DBToRadius( db, volume )
+	return volume * (-(0.0003*math.pow(db, 4)) + (0.0766*math.pow(db, 3)) - (4.5372*math.pow(db, 2)) + (109.05*db) - 902.64)
 end
 
 

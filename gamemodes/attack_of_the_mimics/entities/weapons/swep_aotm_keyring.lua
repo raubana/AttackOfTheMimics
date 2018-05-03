@@ -25,6 +25,7 @@ SWEP.WorldModel				= "models/weapons/w_bugbait.mdl"
 SWEP.HoldType				= "slam"
 SWEP.UseHands				= true
 SWEP.DrawCrosshair			= false
+SWEP.AccurateCrosshair		= true
 
 SWEP.DeploySpeed 			= 5.0
 
@@ -87,6 +88,9 @@ SWEP.Secondary.Ammo			= "none"
 SWEP.DrawAmmo				= false
 
 
+local VOL_SCALE = 0.25
+
+
 
 function SWEP:Initialize()
 	self:SetDeploySpeed(self.DeploySpeed)
@@ -118,7 +122,7 @@ end
 
 
 function SWEP:Deploy()
-	self:PlayRandomSound(self.DeploySounds, 0.35)
+	self:PlayRandomSound(self.DeploySounds, 0.75*VOL_SCALE) -- TODO: Replace sound
 
 	if SERVER then
 		-- pick a random key.
@@ -140,7 +144,7 @@ function SWEP:Reload()
 		local curtime = CurTime()
 		
 		if curtime - self.last_reload > 0.5 then
-			self:PlayRandomSound(self.KeySelectSounds)
+			self:PlayRandomSound(self.KeySelectSounds, VOL_SCALE)
 		
 			if #self.key_list > 0 then
 				local index = self.key_index + 1
@@ -187,13 +191,13 @@ function SWEP:PrimaryAttack()
 		local hitEnt = tr.Entity
 		
 		if IsValid(hitEnt) and IsValid(hitEnt.doorkey_registrar) then
-			self:PlayRandomSound(self.DeploySounds)
+			-- self:PlayRandomSound(self.DeploySounds, VOL_SCALE)
 		
 			if #self.key_list > 0 and self.key_list[self.key_index] == hitEnt.doorkey_registrar.key then
 				hitEnt:Fire("Unlock")
-				self:PlayRandomSound(self.LockSuccessSounds)
+				self:PlayRandomSound(self.LockSuccessSounds, VOL_SCALE)
 			else
-				self:PlayRandomSound(self.LockFailSounds)
+				self:PlayRandomSound(self.LockFailSounds, VOL_SCALE)
 			end
 		end
 		
@@ -238,13 +242,13 @@ function SWEP:SecondaryAttack()
 		local hitEnt = tr.Entity
 		
 		if IsValid(hitEnt) and IsValid(hitEnt.doorkey_registrar) then
-			self:PlayRandomSound(self.DeploySounds)
+			-- self:PlayRandomSound(self.DeploySounds, VOL_SCALE)
 		
 			if #self.key_list > 0 and self.key_list[self.key_index] == hitEnt.doorkey_registrar.key then
 				hitEnt:Fire("Lock")
-				self:PlayRandomSound(self.LockSuccessSounds)
+				self:PlayRandomSound(self.LockSuccessSounds, VOL_SCALE)
 			else
-				self:PlayRandomSound(self.LockFailSounds)
+				self:PlayRandomSound(self.LockFailSounds, VOL_SCALE)
 			end
 		end
 		
@@ -264,8 +268,8 @@ if CLIENT then
 		local active_key = self:GetActiveKey()
 		
 		if active_key then
-			surface.SetFont("Trebuchet24")
-			surface.SetTextColor(color_white)
+			surface.SetFont("DermaLarge")
+			surface.SetTextColor(color_black)
 			
 			surface.SetTextPos(ScrW()/2 + 10, ScrH()/2 + 10)
 			surface.DrawText(active_key)

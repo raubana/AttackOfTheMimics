@@ -19,6 +19,21 @@ end
 
 
 function GM:SavePlayHistory()
+	for _, ply in ipairs(player.GetAll()) do
+		if ply:Team() != SPEC then
+			if ply:Team() != TEAM_MIMIC then
+				GAMEMODE.play_history[ply:SteamID()].rounds_without_mimic = GAMEMODE.play_history[ply:SteamID()].rounds_without_mimic + 1
+			end
+			
+			if ply:Team() != TEAM_MECHANIC then
+				GAMEMODE.play_history[ply:SteamID()].rounds_without_mechanic = GAMEMODE.play_history[ply:SteamID()].rounds_without_mechanic + 1
+			end
+		else
+			if ply.wants_to_play then
+				GAMEMODE.play_history[ply:SteamID()].rounds_without_play = GAMEMODE.play_history[ply:SteamID()].rounds_without_play + 1
+			end
+		end
+	end
 	file.Write(history_filename, util.TableToJSON(GAMEMODE.play_history))
 	print("Saved play history")
 end

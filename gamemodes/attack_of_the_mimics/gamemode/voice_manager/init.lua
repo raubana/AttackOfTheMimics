@@ -2,6 +2,8 @@ AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
+local mimic_deaf_to_mechanic_voip = CreateConVar("aotm_mimic_deaf_to_mechanic_voip", "0", FCVAR_SERVER_CAN_EXECUTE+FCVAR_NOTIFY+FCVAR_ARCHIVE)
+
 
 AOTM_SERVER_MIMICCHATTER_MANAGER = AOTM_SERVER_MIMICCHATTER_MANAGER or {}
 AOTM_SERVER_MIMICCHATTER_MANAGER.chatterers = AOTM_SERVER_MIMICCHATTER_MANAGER.chatterers or {}
@@ -43,6 +45,12 @@ function GM:PlayerCanHearPlayersVoice(listener, talker)
 			return true, true
 		else
 			return false, false
+		end
+	elseif talker:Team() == TEAM_MECHANIC then
+		if mimic_deaf_to_mechanic_voip:GetBool()  then
+			if listener:Team() == TEAM_MIMIC then
+				return false, false
+			end
 		end
 	end
 

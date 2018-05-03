@@ -15,7 +15,7 @@ if CLIENT then
 	SWEP.WepSelectIcon		= surface.GetTextureID( "attack_of_the_mimics/vgui/wep_icons/flashlight" )
 end
 
-SWEP.Slot 					= 4
+SWEP.Slot 					= 5
 SWEP.SlotPos				= 0
 
 SWEP.ViewModelFOV			= 62
@@ -24,7 +24,7 @@ SWEP.ViewModel				= "models/weapons/v_crowbar.mdl"
 SWEP.WorldModel				= "models/weapons/w_crowbar.mdl"
 SWEP.HoldType				= "melee"
 SWEP.UseHands				= true
-SWEP.DrawCrosshair			= true
+SWEP.DrawCrosshair			= false
 
 SWEP.DeploySpeed 			= 5.0
 
@@ -47,7 +47,7 @@ SWEP.Secondary.Ammo			= "none"
 SWEP.SwitchOnSound 			= Sound("attack_of_the_mimics/weapons/flashlight/switch_on.wav")
 SWEP.SwitchOffSound 		= Sound("attack_of_the_mimics/weapons/flashlight/switch_off.wav")
 
-SWEP.Secondary.Delay 		= 0.5
+SWEP.Secondary.Delay 		= 0.3
 
 SWEP.DrawAmmo				= false
 
@@ -78,9 +78,9 @@ end
 function SWEP:ToggleActive()
 	self:SetIsActivated(not self:GetIsActivated())
 	if self:GetIsActivated() then
-		self:EmitSound(self.SwitchOnSound, 75, 100, 0.25)
+		self:EmitSound(self.SwitchOnSound, 75, 100, 0.1)
 	else
-		self:EmitSound(self.SwitchOffSound, 75, 100, 0.25)
+		self:EmitSound(self.SwitchOffSound, 75, 100, 0.1)
 	end
 end
 
@@ -143,7 +143,7 @@ function SWEP:PrimaryAttack()
 
 	-- Hull might hit environment stuff that line does not hit
 	if not IsValid(tr.Entity) then
-		tr = util.TraceLine({start=spos, endpos=sdest, filter=self.Owner, mask=MASK_SHOT_HULL})
+		tr = util.TraceLine({start=spos, endpos=sdest, filter=self.Owner, mask=MASK_SHOT})
 	end
 
 	local hitEnt = tr.Entity
@@ -168,7 +168,8 @@ function SWEP:PrimaryAttack()
 		hitEnt:DispatchTraceAttack(dmg, spos + (owner:GetAimVector() * 3), sdest)
 		
 		if hitEnt:IsPlayer() then
-			hitEnt:SetEnergy(hitEnt:GetEnergy() - 25)
+			hitEnt:SetEnergy(hitEnt:GetEnergy() - 10)
+			hitEnt:ViewPunch(Angle( Lerp(math.random(),-1,1)*10, Lerp(math.random(),-1,1)*10, Lerp(math.random(),-1,1)*10 ))
 		end
 	end
 	
@@ -178,6 +179,8 @@ function SWEP:PrimaryAttack()
 		if IsValid(owner) then
 			owner:SetEnergy(owner:GetEnergy()-10)
 		end
+	elseif CLIENT then
+		owner:ViewPunch(Angle(10,0,0)) -- TODO: Find a way to make this work on the client's end only.
 	end
 end
 

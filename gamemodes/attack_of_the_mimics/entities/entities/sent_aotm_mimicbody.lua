@@ -143,8 +143,9 @@ function ENT:Initialize()
 		self:SetRenderBounds(vector_origin-(Vector(1,1,1)*100), vector_origin+(Vector(1,1,1)*100))
 		self.do_not_draw = false
 		
-		--[[
 		self.hiding_trans = SMOOTH_TRANS:create(0.2)
+		
+		--[[
 		
 		self.client_props = {}
 		self.client_prop_model = ""
@@ -246,8 +247,8 @@ function ENT:Think()
 		local pos = mimic:GetPos() - Vector(0,0,mins.z)
 		self:SetPos(pos)
 		
-		--[[
 		if CLIENT then
+			--[[
 			local expected_model = self:GetModel()
 			
 			if expected_model != self.client_prop_model then
@@ -256,13 +257,13 @@ function ENT:Think()
 					prop:SetModel(expected_model)
 				end
 			end
+			]]
 			
 			local rel_vel = mimic:GetVelocity() - mimic:GetBaseVelocity()
 			
 			self.hiding_trans:SetDirection( rel_vel:Length() > 90 or not mimic:GetIsHiding() )
 			self.hiding_trans:Update()
 		end
-		]]
 	end
 
 	self:NextThink(CurTime() + 0.25)
@@ -274,8 +275,19 @@ end
 if CLIENT then
 	function ENT:Draw()
 		local mimic = self:GetMimic()
+		local p = self.hiding_trans:GetPercent()
+		
+		local matrix = Matrix()
+		matrix:Scale( Vector(1,1,1)*(1-p) )
+		
+		self:EnableMatrix("RenderMultiply", matrix)
 		
 		if IsValid(mimic) then
+			local matrix = Matrix()
+			matrix:Scale( Vector(1,1,1)*(p) )
+			
+			mimic:EnableMatrix("RenderMultiply", matrix)
+		
 			if self.do_not_draw then
 				-- do nothing
 			else

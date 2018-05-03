@@ -47,11 +47,13 @@ end
 
 
 function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, origin, angles, fov )
-	-- local temp_Texture = GetRenderTarget("AOTM_CCTV_TEMP", AOTM_CLIENT_CAMERA_MANAGER.WIDTH, AOTM_CLIENT_CAMERA_MANAGER.HEIGHT, false)
-	-- local mat_ColorMod = Material( "pp/colour" )
-	-- local old_texture = mat_ColorMod:GetTexture("$fbtexture")
-	-- mat_ColorMod:SetTexture( "$fbtexture", temp_Texture )
-
+	--[[
+	local temp_Texture = GetRenderTarget("AOTM_CCTV_TEMP", AOTM_CLIENT_CAMERA_MANAGER.WIDTH, AOTM_CLIENT_CAMERA_MANAGER.HEIGHT, false)
+	local mat_ColorMod = Material( "pp/colour" )
+	local old_texture = mat_ColorMod:GetTexture("$fbtexture")
+	mat_ColorMod:SetTexture( "$fbtexture", temp_Texture )
+	]]
+	
 	render.PushRenderTarget(texture)
 	
 	local fov = fov or 45
@@ -73,7 +75,7 @@ function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, ori
 		proj_text:SetEnableShadows(true)
 		proj_text:SetTexture("effects/flashlight001")
 		proj_text:SetBrightness(1)
-		proj_text:SetColor(HSVToColor(0,0,0.25))
+		proj_text:SetColor(HSVToColor(0,0,0.5))
 		proj_text:SetHorizontalFOV(fov*1.2)
 		proj_text:SetVerticalFOV(fov*1.2)
 		proj_text:SetPos(origin-(angles:Up()*5))
@@ -103,12 +105,12 @@ function AOTM_CLIENT_CAMERA_MANAGER:UpdateRenderTarget( source_ent, texture, ori
 	
 	render.BlurRenderTarget(texture, 1, 1, 1)
 	
-	-- render.CopyRenderTargetToTexture(temp_Texture)
+	--[[
+	render.CopyRenderTargetToTexture(temp_Texture)
 	
 	local contrast = 1.0
 	if nightvision then contrast = 4.0 end
 	
-	--[[
 	local color_mod = {}
 	color_mod["$pp_colour_addr"] = 0.0
 	color_mod["$pp_colour_addg"] = 0.0

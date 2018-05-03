@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" 	"attack_of_the_mimics/debug/dof_test_image"
+	"$vertexcolor"	1
+	"$vertexalpha"	1
+}

@@ -24,6 +24,7 @@ SWEP.WorldModel				= Model( "models/weapons/c_arms_animations.mdl" )
 SWEP.HoldType				= "normal"
 SWEP.UseHands				= true
 SWEP.DrawCrosshair			= true
+SWEP.AccurateCrosshair		= true
 
 SWEP.DeploySpeed 			= 1.0
 

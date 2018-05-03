@@ -10,10 +10,6 @@ local CHATTER_SOUNDS = {
 	Sound("npc/headcrab_poison/ph_warning1.wav"),
 	Sound("npc/headcrab_poison/ph_warning2.wav"),
 	Sound("npc/headcrab_poison/ph_warning3.wav"),
-	Sound("npc/antlion/idle1.wav"),
-	Sound("npc/antlion/idle5.wav"),
-	Sound("npc/headcrab_fast/idle1.wav"),
-	Sound("npc/headcrab_fast/idle2.wav")
 }
 
 
@@ -50,8 +46,12 @@ hook.Add( "Tick", "AOTM_Tick_MimicChatter_Init", function()
 			end
 			
 			if curtime >= ply.next_chatter then
-				ply:EmitSound(CHATTER_SOUNDS[math.random(#CHATTER_SOUNDS)], 85, Lerp(math.random(), 90, 110), 0.1)
-				ply.next_chatter = curtime + 1.0
+				hook.Call( "AOTM_MimicChatter", nil, ply:GetPos() )
+				
+				local snd = CHATTER_SOUNDS[math.random(#CHATTER_SOUNDS)]
+				print( snd )
+				ply:EmitSound(snd, 85, Lerp(math.random(), 90, 110), 0.1)
+				ply.next_chatter = curtime + 1.25
 			end
 		end
 	end

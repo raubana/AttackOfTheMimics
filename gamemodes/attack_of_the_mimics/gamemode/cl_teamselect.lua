@@ -63,4 +63,11 @@ hook.Add("PlayerBindPress", "AOTM_PlayerBindPress_ClTeamSelect", function(ply, b
 	end
 end)
 
+
+hook.Add( "InitPostEntity", "AOTM_Teamselect_InitPostEntity", function()
+	if not ispanel(my_frame) then
+		CreateTeamSelectMenu()
+	end
+end )
+
 print("cl_teamselect ran")

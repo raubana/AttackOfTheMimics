@@ -1,6 +1,12 @@
 
 
-hook.Add( "PlayerTick", "AOTM_PlayerTick_PlayerExhaustion", function(ply, mv)
+local SCALE = 2.0
+local PLAYER_TIRED_THRESHOLD = 0
+local PLAYER_UNTIRED_THRESHOLD = 50
+
+
+
+hook.Add( "PlayerTick", "AOTM_PlayerExhaustion_PlayerTick", function(ply, mv)
 	local t = ply:Team()
 
 	if t != TEAM_SPEC and ply:Alive() then
@@ -16,18 +22,17 @@ hook.Add( "PlayerTick", "AOTM_PlayerTick_PlayerExhaustion", function(ply, mv)
 		ply.last_updated_energy = CurTime()
 		
 		if ply:IsOnGround() then
-			if mv:KeyPressed(IN_JUMP) then
-				nrg = nrg - 5
+			local speed = ply:GetVelocity():Length()
+			if speed > 25 then
+				nrg = nrg - t_dif*((speed+1.0)*0.025*SCALE)
 			end
 			
-			local speed = ply:GetVelocity():Length()
-			if speed > 150 then
-				nrg = nrg - 10.0*t_dif
+			if mv:KeyPressed(IN_JUMP) then
+				nrg = nrg - (10 + (speed/30.0))
 			end
 		end
 		
-		if nrg <= 0 then
-			nrg = 0
+		if nrg <= PLAYER_TIRED_THRESHOLD then
 			if not ply:GetIsTired() then
 				ply:SetIsTired( true )
 				ply.old_run_speed = ply:GetRunSpeed()
@@ -38,9 +43,9 @@ hook.Add( "PlayerTick", "AOTM_PlayerTick_PlayerExhaustion", function(ply, mv)
 		end
 		
 		if nrg < 100 then
-			nrg = nrg + 4*t_dif
+			nrg = nrg + 3*t_dif*SCALE
 			
-			if ply:GetIsTired() and nrg >= 100 then
+			if ply:GetIsTired() and nrg >= PLAYER_UNTIRED_THRESHOLD then
 				ply:SetIsTired( false )
 				ply:SetRunSpeed(ply.old_run_speed)
 				ply:SetJumpPower(ply.old_jump_power)

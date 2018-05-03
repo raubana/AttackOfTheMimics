@@ -31,7 +31,7 @@ net.Receive( "AOTM_RunIntroLogo", function(len, ply)
 	local localplayer = LocalPlayer()
 	if IsValid(localplayer) then
 		AOTM_CLIENT_MUSIC_MANAGER:StopAllSongs()
-		AOTM_CLIENT_MUSIC_MANAGER:StartSong("attack_of_the_mimics/music/intro_theme.mp3", 0.5, 1, false)
+		AOTM_CLIENT_MUSIC_MANAGER:StartSong("attack_of_the_mimics/music/intro_theme.mp3", 0.33, 1, false)
 	end
 	
 	hook.Add( "HUDShouldDraw", "AOTM_HUDShouldDraw_IntroLogo", function(name)

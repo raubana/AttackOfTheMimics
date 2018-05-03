@@ -7,13 +7,13 @@ function plymeta:SetMimicBody( ent )
 end
 
 
-function plymeta:SetIsTired(bool)
-	self:SetNWBool("IsTired", bool)
+function plymeta:SetIsHiding(bool)
+	self:SetNWBool("IsHiding", bool)
 end
 
 
-function plymeta:SetIsHiding(bool)
-	self:SetNWBool("IsHiding", bool)
+function plymeta:SetIsTired(bool)
+	self:SetNWBool("IsTired", bool)
 end
 
 

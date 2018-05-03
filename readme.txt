@@ -3,6 +3,9 @@ Updated 10/11/2017
 Dylan J. Raub
 
 
+WARNING: This readme is very outdated. It will be updated soon!
+
+
 
 
 ================================================================================
@@ -231,6 +234,7 @@ The mimics have only one tool, but several abilities:
 	
 	
 3)  Scream
+    
     The scream ability allows a mimic to refill their stamina completly, but
     there is a 30 second cool-down period. To scream, press your reload key
     (Default: R).

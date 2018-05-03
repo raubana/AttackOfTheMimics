@@ -38,11 +38,9 @@ function AddAllResourcesAt(name, path)
 	return filelist
 end
 
-
 AddAllResourcesAt("models/attack_of_the_mimics/*")
 AddAllResourcesAt("materials/attack_of_the_mimics/*")
 AddAllResourcesAt("sound/attack_of_the_mimics/*")
 
-
-resource.AddWorkshop("1095448769") -- map
+-- resource.AddWorkshop("1095448769") -- map CAUSES A CRASH!!
 resource.AddWorkshop("1096845726") -- content

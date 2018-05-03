@@ -27,6 +27,9 @@ local DEFAULT_MIMIC_MODELS = {
 }
 
 
+local mimic_runspeed_scale = CreateConVar("aotm_mimic_runspeed_scale", "1.75", FCVAR_SERVER_CAN_EXECUTE+FCVAR_NOTIFY+FCVAR_ARCHIVE)
+
+
 function GM:PlayerSpawn(ply)
 	local t = ply:Team()
 
@@ -37,6 +40,7 @@ function GM:PlayerSpawn(ply)
 		ply:SetEnergy(100)
 		ply:SetIsTired(false)
 		ply:AllowFlashlight(false)
+		ply:SetIsHiding(false)
 		
 		ply:SetJumpPower(200)
 		
@@ -47,16 +51,19 @@ function GM:PlayerSpawn(ply)
 			ply:Give("swep_aotm_taskboard")
 			ply:Give("swep_aotm_keyring")
 			ply:Give("swep_aotm_flashlight")
+			ply:Give("swep_aotm_taser")
 			ply:ShouldDropWeapon(true)
 			
-			ply:SetRunSpeed(300)
-			ply:SetWalkSpeed(75)
+			ply:SetRunSpeed(200)
+			ply:SetWalkSpeed(70)
 			ply:SetCrouchedWalkSpeed(0.5)
 			
+			--[[
 			local ent = ents.Create("sent_aotm_id_badge")
 			ent:PinToPlayer(ply)
 			ent:Spawn()
 			ent:Activate()
+			]]
 			
 			AOTM_SERVER_IDBADGE_MANAGER:AddBadge(ply, ent)
 		elseif t == TEAM_MIMIC then
@@ -65,8 +72,8 @@ function GM:PlayerSpawn(ply)
 			ply:Give("swep_aotm_claws")
 			ply:ShouldDropWeapon(false)
 			
-			ply:SetRunSpeed(200)
-			ply:SetWalkSpeed(75)
+			ply:SetRunSpeed(200*mimic_runspeed_scale:GetFloat(1.0))
+			ply:SetWalkSpeed(70)
 			ply:SetCrouchedWalkSpeed(0.5)
 			
 			local ent = ents.Create("sent_aotm_mimicbody")

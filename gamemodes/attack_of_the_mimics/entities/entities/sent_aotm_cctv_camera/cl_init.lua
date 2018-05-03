@@ -17,7 +17,7 @@ function ENT:UpdateRenderTarget()
 	local curtime = CurTime()
 	
 	if curtime > self.next_render then
-		self.next_render = curtime + (1/4) + Lerp(math.random(), 0.0, 0.2)
+		self.next_render = curtime + (1/8) + Lerp(math.random(), 0.0, 0.2)
 		
 		local ang = self:GetAngles()
 		ang:RotateAroundAxis(ang:Up(), 25)
